@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FlashCardApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_addNewDeck">View Stats</string>
+</resources>
