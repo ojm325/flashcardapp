@@ -1,6 +1,8 @@
 package com.ojm.flashcardapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,16 +11,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.*;
 
 public class FlashCardListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
-    @Bind(R.id.deckList) TableLayout deckList;
+    @Bind(R.id.deckList) SwipeMenuListView deckList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +38,76 @@ public class FlashCardListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+
+        final List<String> list = new ArrayList<>();
+        list.add("Test 1");
+        list.add("Test 2");
+        list.add("Test 3");
+        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
+        deckList.setAdapter(adapter);
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getApplicationContext());
+
+                // set item width
+                openItem.setBackground((new ColorDrawable(Color.RED)));
+                openItem.setWidth(90);
+                // set item title
+                openItem.setTitle("Open");
+                // set item title fontsize
+                openItem.setTitleSize(18);
+                openItem.setTitleColor(Color.BLACK);
+                // set item title font color
+                // add to menu
+                menu.addMenuItem(openItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                // set item width
+                deleteItem.setWidth(90);
+                // set a icon
+                deleteItem.setTitle("DELETE");
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        deckList.setMenuCreator(creator);
+
+        deckList.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
+
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+
+            }
+        });
+
+        deckList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // open
+                        break;
+                    case 1:
+                        // delete
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,18 +125,12 @@ public class FlashCardListActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void fab(View view){
-        /*
-        Intent intent = new Intent(this, CreateFlashCardActivity.class);
-        startActivity(intent);
-        */
-
-        TableRow row = new TableRow(this);
-        TextView text = new TextView(this);
-        text.setText("New Row");
-        row.addView(text);
-        deckList.addView(row);
-
+        final List<String> list = new ArrayList<>();
+        list.add("Test 4");
+        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
+        deckList.setAdapter(adapter);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
