@@ -1,5 +1,6 @@
 package com.ojm.flashcardapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import butterknife.*;
 
 public class FlashCardListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.deckList) TableLayout deckList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,17 @@ public class FlashCardListActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void fab(View view){
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        /*
+        Intent intent = new Intent(this, CreateFlashCardActivity.class);
+        startActivity(intent);
+        */
+
+        TableRow row = new TableRow(this);
+        TextView text = new TextView(this);
+        text.setText("New Row");
+        row.addView(text);
+        deckList.addView(row);
+
     }
 
     @Override
