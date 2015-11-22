@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    compile 'com.github.sasakicks:draggable-flipview:1.1.0'
 }
