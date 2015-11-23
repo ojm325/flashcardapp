@@ -1,6 +1,7 @@
 package com.ojm.flashcardapp;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,9 +10,9 @@ import java.util.Map;
 public class FlashCardDeck {
     private String deckName;
     private String deckType;
-    private LinkedHashMap<Object, Object> cards;
+    private List<Map<Object, Object>> cards;
 
-    public FlashCardDeck(String deckName, String deckType, LinkedHashMap<Object, Object> cards){
+    public FlashCardDeck(String deckName, String deckType, List<Map<Object, Object>> cards){
         this.deckName = deckName;
         this.deckType = deckType;
         this.cards = cards;
@@ -22,7 +23,7 @@ public class FlashCardDeck {
     public String deckType(){
         return this.deckType;
     }
-    public LinkedHashMap<Object, Object> cards(){
+    public List<Map<Object, Object>> cards(){
         return this.cards;
     }
 }

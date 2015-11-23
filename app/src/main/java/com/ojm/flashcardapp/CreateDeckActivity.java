@@ -33,11 +33,20 @@ public class CreateDeckActivity extends Activity {
     public void nextButton(View view) {
         GenerateDeckLocalSheet localSheet = new GenerateDeckLocalSheet();
 
-        LinkedHashMap<Object, Object> cards = new LinkedHashMap<Object, Object>();
+        List<Map<Object, Object>> cards = new ArrayList<Map<Object, Object>>();
 
-        cards.put("Is this a question?", "Yes");
+        cards.add(0, <"Is this a question?", "Yes">);
         cards.put("What's your name?", "Omar");
         cards.put("What band was Mark Kozelek in?", "Red House Painters");
+
+        /*
+            This looks terrible. Here's an idea:
+            - Make an individual card class that's supposed to take in necessary values.
+            - Some parts can be optional.
+            - Then we make an array of these cards. Sound good?
+
+         */
+
 
         FlashCardDeck deck = new FlashCardDeck("Test Deck", "flip-to-view", cards);
 
