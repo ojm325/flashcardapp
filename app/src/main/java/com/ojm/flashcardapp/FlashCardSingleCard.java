@@ -19,6 +19,11 @@ public class FlashCardSingleCard {
                                ArrayList multipleChoices,
                                String answer,
                                String answerNote){
+        this.question = question;
+        this.questionPicture = questionPicture;
+        this.multipleChoices = multipleChoices;
+        this.answer = answer;
+        this.answerNote = answerNote;
 
     }
     public String getQuestion(){

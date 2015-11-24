@@ -33,11 +33,15 @@ public class CreateDeckActivity extends Activity {
     public void nextButton(View view) {
         GenerateDeckLocalSheet localSheet = new GenerateDeckLocalSheet();
 
-        List<Map<Object, Object>> cards = new ArrayList<Map<Object, Object>>();
+        ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
 
-        cards.add(0, <"Is this a question?", "Yes">);
-        cards.put("What's your name?", "Omar");
-        cards.put("What band was Mark Kozelek in?", "Red House Painters");
+        FlashCardSingleCard card1 = new FlashCardSingleCard("Is this a question?", null, null, "Yes", null);
+        FlashCardSingleCard card2 = new FlashCardSingleCard("What's your name?", null, null, "Omar", null);
+        FlashCardSingleCard card3 = new FlashCardSingleCard("What band was Mark Kozelek in?", null, null, "Red House Painters", null);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
 
         /*
             This looks terrible. Here's an idea:

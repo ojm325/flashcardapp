@@ -136,9 +136,13 @@ public class FlashCardListActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void fab(View view){
+        /*
         list.add("Test 4");
         final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
         deckList.setAdapter(adapter);
+        */
+        Intent intent = new Intent(FlashCardListActivity.this, CreateDeckActivity.class);
+        startActivity(intent);
     }
 
 
