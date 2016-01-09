@@ -1,4 +1,4 @@
-package com.ojm.flashcardapp;
+package com.ojm.flashcardapp.DataPoints;
 
 /**
  * Created by omar on 11/22/15.

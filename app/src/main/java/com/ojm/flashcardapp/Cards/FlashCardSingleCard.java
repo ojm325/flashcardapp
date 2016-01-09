@@ -1,4 +1,4 @@
-package com.ojm.flashcardapp;
+package com.ojm.flashcardapp.Cards;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.ojm.flashcardapp.Cards.FlashCardDeck;
+import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+import com.ojm.flashcardapp.DataPoints.GenerateDeckLocalSheet;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -1,10 +1,6 @@
-package com.ojm.flashcardapp;
+package com.ojm.flashcardapp.Cards;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by omar on 11/22/15.
