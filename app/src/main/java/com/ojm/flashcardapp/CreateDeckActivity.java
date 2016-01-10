@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.ojm.flashcardapp.Cards.FlashCardDeck;
 import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
-import com.ojm.flashcardapp.DataPoints.LocalSaving;
+import com.ojm.flashcardapp.Storage.SQLiteHelper;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class CreateDeckActivity extends Activity {
 
     @OnClick(R.id.next)
     public void nextButton(View view) {
-        LocalSaving localSheet = new LocalSaving();
+        SQLiteHelper localSheet = new SQLiteHelper();
 
         ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
 
