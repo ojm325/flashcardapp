@@ -16,7 +16,7 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public void addCard(FlashCardSingleCard card) {
+    public void addCard(FlashCardSingleCard card, int deckId) {
 
     }
 
@@ -26,7 +26,7 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public void modifyCard(FlashCardSingleCard card) {
+    public void modifyCard(FlashCardSingleCard card, int deckId) {
 
     }
 
@@ -36,17 +36,27 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public ArrayList<FlashCardSingleCard> getAllCards() {
+    public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId) {
         return null;
     }
 
     @Override
-    public ArrayList getDeck() {
+    public FlashCardDeck getDeck() {
         return null;
     }
 
     @Override
-    public ArrayList getCard() {
+    public FlashCardSingleCard getCard(int deckId) {
         return null;
+    }
+
+    @Override
+    public void deleteDeck() {
+
+    }
+
+    @Override
+    public void deleteCard(int deckId) {
+
     }
 }

@@ -10,11 +10,13 @@ import java.util.ArrayList;
  */
 public interface DataStorage {
     public void addDeck(FlashCardDeck deck);
-    public void addCard(FlashCardSingleCard card);
+    public void addCard(FlashCardSingleCard card, int deckId);
     public void modifyDeck(FlashCardDeck deck);
-    public void modifyCard(FlashCardSingleCard card);
+    public void modifyCard(FlashCardSingleCard card, int deckId);
     public ArrayList<FlashCardDeck> getAllDecks();
-    public ArrayList<FlashCardSingleCard> getAllCards();
-    public ArrayList getDeck();
-    public ArrayList getCard();
+    public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId);
+    public FlashCardDeck getDeck();
+    public FlashCardSingleCard getCard(int deckId);
+    public void deleteDeck();
+    public void deleteCard(int deckId);
 }

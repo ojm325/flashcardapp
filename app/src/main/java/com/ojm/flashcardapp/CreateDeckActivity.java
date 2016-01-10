@@ -8,7 +8,9 @@ import android.widget.Button;
 
 import com.ojm.flashcardapp.Cards.FlashCardDeck;
 import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteHelper;
+import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class CreateDeckActivity extends Activity {
 
     @OnClick(R.id.next)
     public void nextButton(View view) {
-        SQLiteHelper localSheet = new SQLiteHelper();
+        DataStorage localStorage = new SQLiteLocalStorage(getApplicationContext());
 
         ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
 
@@ -55,7 +57,6 @@ public class CreateDeckActivity extends Activity {
         FlashCardDeck deck = new FlashCardDeck("Test Deck", "flip-to-view", cards);
 
 
-        localSheet.createXMLFile(deck);
 
         Intent intent = new Intent(CreateDeckActivity.this, FlashCardListActivity.class);
         startActivity(intent);

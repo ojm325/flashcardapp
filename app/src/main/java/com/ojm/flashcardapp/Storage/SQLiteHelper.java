@@ -12,10 +12,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String DECK_TABLE = "deck_table";
     public static final String CARD_TABLE = "card_table";
 
-    public static final String DECK_id = "id";
+    public static final String DECK_deck_id = "deck_id";
     public static final String DECK_deck_name = "deck_name";
 
-    public static final String CARD_id = "id";
+    public static final String CARD_card_id = "card_id";
     public static final String CARD_question = "question";
     public static final String CARD_answer = "answer";
 
@@ -26,11 +26,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " +DECK_TABLE+ "("
-                    +DECK_id+ "INTEGER PRIMARY KEY,"
-                    +DECK_deck_name+ "TEXT)");
+                    +DECK_deck_id+ "INTEGER PRIMARY KEY,"
+                    +DECK_deck_name+ "TEXT UNIQUE)");
 
         db.execSQL("CREATE TABLE " +CARD_TABLE+ "("
-                +CARD_id+ "INTEGER PRIMARY KEY,"
+                +CARD_card_id+ "INTEGER PRIMARY KEY,"
+                +DECK_deck_id+ "INTEGER FOREIGN KEY,"
                 +CARD_question+ "TEXT,"
                 +CARD_answer+ "TEXT)");
     }
