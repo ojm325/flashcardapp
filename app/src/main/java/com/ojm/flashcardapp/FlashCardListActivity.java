@@ -44,6 +44,7 @@ import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
 import com.google.api.services.drive.model.*;
+import com.ojm.flashcardapp.Cards.FlashCardDeck;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -92,9 +93,16 @@ public class FlashCardListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         list = new ArrayList<>();
+
         list.add("Test 1");
         list.add("Test 2");
         list.add("Test 3");
+
+        swipeMenuFunctionality();
+
+    }
+
+    protected void swipeMenuFunctionality(){
         final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
         deckList.setAdapter(adapter);
 
@@ -166,22 +174,11 @@ public class FlashCardListActivity extends AppCompatActivity {
             }
 
         });
-
-
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
     }
 
+    /*
+        Add Deck Button, or floating action button
+     */
     @OnClick(R.id.fab)
     public void fab(View view){
         /*
