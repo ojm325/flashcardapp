@@ -12,31 +12,34 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String DECK_TABLE = "deck_table";
     public static final String CARD_TABLE = "card_table";
 
-    public static final String DECK_COL1 = "id";
-    public static final String DECK_COL2 = "deck_name";
+    public static final String DECK_id = "id";
+    public static final String DECK_deck_name = "deck_name";
 
-    public static final String CARD_COL1 = "id";
-    public static final String CARD_COL2 = "question";
-    public static final String CARD_COL3 = "answer";
+    public static final String CARD_id = "id";
+    public static final String CARD_question = "question";
+    public static final String CARD_answer = "answer";
 
-    public SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public SQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " +DECK_TABLE+ "("
-                    +DECK_COL1+ "INTEGER PRIMARY KEY,"
-                    +DECK_COL2+ "TEXT)");
+                    +DECK_id+ "INTEGER PRIMARY KEY,"
+                    +DECK_deck_name+ "TEXT)");
 
         db.execSQL("CREATE TABLE " +CARD_TABLE+ "("
-                +CARD_COL1+ "INTEGER PRIMARY KEY,"
-                +CARD_COL2+ "TEXT,"
-                +CARD_COL3+ "TEXT)");
+                +CARD_id+ "INTEGER PRIMARY KEY,"
+                +CARD_question+ "TEXT,"
+                +CARD_answer+ "TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " +DECK_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " +CARD_TABLE);
+        onCreate(db);
 
     }
 

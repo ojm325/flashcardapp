@@ -1,46 +1,52 @@
 package com.ojm.flashcardapp.Storage;
 
+import com.ojm.flashcardapp.Cards.FlashCardDeck;
+import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+
+import java.util.ArrayList;
+
 /**
  * Created by omar on 11/22/15.
  */
 public class GoogleDriveStorage implements DataStorage {
+
     @Override
-    public void saveDeck() {
+    public void addDeck(FlashCardDeck deck) {
 
     }
 
     @Override
-    public void saveCard() {
+    public void addCard(FlashCardSingleCard card) {
 
     }
 
     @Override
-    public void modifyDeck() {
+    public void modifyDeck(FlashCardDeck deck) {
 
     }
 
     @Override
-    public void modifyCard() {
+    public void modifyCard(FlashCardSingleCard card) {
 
     }
 
     @Override
-    public void getAllDecks() {
-
+    public ArrayList<FlashCardDeck> getAllDecks() {
+        return null;
     }
 
     @Override
-    public void getAllCards() {
-
+    public ArrayList<FlashCardSingleCard> getAllCards() {
+        return null;
     }
 
     @Override
-    public void getDeck() {
-
+    public ArrayList getDeck() {
+        return null;
     }
 
     @Override
-    public void getCard() {
-
+    public ArrayList getCard() {
+        return null;
     }
 }
