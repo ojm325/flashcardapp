@@ -3,6 +3,7 @@ package com.ojm.flashcardapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -56,6 +57,18 @@ public class CreateDeckActivity extends Activity {
 
         FlashCardDeck deck = new FlashCardDeck("Test Deck", "flip-to-view", cards);
 
+        localStorage.addDeck(deck);
+        for(int i = 0; i < cards.size(); i++) {
+            localStorage.addCard(cards.get(i), 0);
+        }
+
+        /*
+        ArrayList<FlashCardSingleCard> arr = localStorage.getAllCardsForDeck(0);
+        for(int i = 0; i < arr.size(); i++){
+            FlashCardSingleCard card = arr.get(i);
+            Log.d("CARD IN DECK: ", card.getQuestion());
+        }
+        */
 
 
         Intent intent = new Intent(CreateDeckActivity.this, FlashCardListActivity.class);

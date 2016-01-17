@@ -38,28 +38,35 @@ public class SQLiteLocalStorage implements DataStorage {
     @Override
     public void addDeck(FlashCardDeck deck) {
         try {
+            this.open();
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_name, deck.getDeckName());
 
             db.insert(SQLiteHelper.DECK_TABLE, null, values);
 
+            this.close();
+
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "addDeck ERROR: " + e.getMessage());
         }
     }
 
     @Override
     public void addCard(FlashCardSingleCard card, int deckId) {
         try {
+            this.open();
+
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_id, deckId);
             values.put(dbHelper.CARD_question, card.getQuestion());
             values.put(dbHelper.CARD_answer, card.getAnswer());
 
-            db.insert(SQLiteHelper.DECK_TABLE, null, values);
+            db.insert(SQLiteHelper.CARD_TABLE, null, values);
+
+            this.close();
 
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "addCard ERROR: " + e.getMessage());
         }
     }
 
@@ -68,7 +75,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
 
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "modifyDeck ERROR: " + e.getMessage());
         }
     }
 
@@ -77,7 +84,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
 
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "modifyCard ERROR: " + e.getMessage());
         }
     }
 
@@ -89,7 +96,7 @@ public class SQLiteLocalStorage implements DataStorage {
 
             return deck;
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "getAllDecks ERROR: " + e.getMessage());
             return null;
         }
     }
@@ -97,12 +104,17 @@ public class SQLiteLocalStorage implements DataStorage {
     @Override
     public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId) {
         try {
-            ArrayList<FlashCardSingleCard> card = new ArrayList<FlashCardSingleCard>();
+            ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
             Cursor cursor = db.query(dbHelper.CARD_TABLE, allCardTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 
-            return null;
+            for(int i = 0; i < cursor.getInt(0); i++) {
+                FlashCardSingleCard card = new FlashCardSingleCard(cursor.getColumnName(cursor.getColumnIndex(dbHelper.CARD_question)), null, null, cursor.getColumnName(cursor.getColumnIndex(dbHelper.CARD_answer)), null);
+                cards.add(card);
+            }
+
+            return cards;
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "getAllCardsForDeck ERROR: " + e.getMessage());
             return null;
         }
     }
@@ -113,7 +125,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
             return null;
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "getDeck ERROR: " + e.getMessage());
             return null;
         }
     }
@@ -123,7 +135,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
             return null;
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "getCard ERROR: " + e.getMessage());
             return null;
         }
     }
@@ -133,7 +145,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
 
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "deleteDeck ERROR: " + e.getMessage());
         }
     }
 
@@ -142,7 +154,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
 
         }catch(Exception e){
-            Log.e(LOG_TAG, "ERROR: " + e.getMessage());
+            Log.e(LOG_TAG, "deleteCard ERROR: " + e.getMessage());
         }
     }
 }
