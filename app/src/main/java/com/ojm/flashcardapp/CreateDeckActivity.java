@@ -62,13 +62,14 @@ public class CreateDeckActivity extends Activity {
             localStorage.addCard(cards.get(i), 0);
         }
 
-        /*
+
         ArrayList<FlashCardSingleCard> arr = localStorage.getAllCardsForDeck(0);
+
         for(int i = 0; i < arr.size(); i++){
             FlashCardSingleCard card = arr.get(i);
-            Log.d("CARD IN DECK: ", card.getQuestion());
+            Log.d("CARD IN DECK", card.getQuestion());
         }
-        */
+
 
 
         Intent intent = new Intent(CreateDeckActivity.this, FlashCardListActivity.class);

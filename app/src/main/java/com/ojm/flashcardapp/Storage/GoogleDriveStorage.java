@@ -51,12 +51,12 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public void deleteDeck() {
+    public void deleteDeck(int deckId) {
 
     }
 
     @Override
-    public void deleteCard(int deckId) {
+    public void deleteCard(int deckId, int cardId) {
 
     }
 }

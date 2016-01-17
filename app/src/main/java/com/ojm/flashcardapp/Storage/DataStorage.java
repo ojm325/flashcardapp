@@ -17,6 +17,6 @@ public interface DataStorage {
     public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId);
     public FlashCardDeck getDeck();
     public FlashCardSingleCard getCard(int deckId);
-    public void deleteDeck();
-    public void deleteCard(int deckId);
+    public void deleteDeck(int deckId);
+    public void deleteCard(int deckId, int cardId);
 }

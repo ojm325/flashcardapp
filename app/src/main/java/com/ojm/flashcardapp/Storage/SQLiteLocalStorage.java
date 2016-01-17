@@ -91,10 +91,28 @@ public class SQLiteLocalStorage implements DataStorage {
     @Override
     public ArrayList<FlashCardDeck> getAllDecks() {
         try {
-            ArrayList<FlashCardDeck> deck = new ArrayList<FlashCardDeck>();
+            this.open();
+
+            ArrayList<FlashCardDeck> decks = new ArrayList<FlashCardDeck>();
             Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, null, null, null, null, null);
 
-            return deck;
+            if(cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()){
+                    int deckId = cursor.getInt(cursor.getColumnIndex(dbHelper.DECK_deck_id));
+                    String deckName = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_deck_name));
+                    ArrayList<FlashCardSingleCard> cards = this.getAllCardsForDeck(deckId);
+
+
+                    FlashCardDeck deck = new FlashCardDeck(deckName, null, cards);
+                    decks.add(deck);
+
+                    cursor.moveToNext();
+                }
+            }
+
+            this.close();
+
+            return decks;
         }catch(Exception e){
             Log.e(LOG_TAG, "getAllDecks ERROR: " + e.getMessage());
             return null;
@@ -104,13 +122,24 @@ public class SQLiteLocalStorage implements DataStorage {
     @Override
     public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId) {
         try {
+            this.open();
+
             ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
             Cursor cursor = db.query(dbHelper.CARD_TABLE, allCardTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 
-            for(int i = 0; i < cursor.getInt(0); i++) {
-                FlashCardSingleCard card = new FlashCardSingleCard(cursor.getColumnName(cursor.getColumnIndex(dbHelper.CARD_question)), null, null, cursor.getColumnName(cursor.getColumnIndex(dbHelper.CARD_answer)), null);
-                cards.add(card);
+            if(cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()){
+                    String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
+                    String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_answer));
+
+                    FlashCardSingleCard card = new FlashCardSingleCard(question, null, null, answer, null);
+                    cards.add(card);
+
+                    cursor.moveToNext();
+                }
             }
+
+            this.close();
 
             return cards;
         }catch(Exception e){
@@ -141,18 +170,22 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public void deleteDeck() {
+    public void deleteDeck(int deckId) {
         try {
-
+            this.open();
+            db.delete(dbHelper.DECK_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
+            this.close();
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteDeck ERROR: " + e.getMessage());
         }
     }
 
     @Override
-    public void deleteCard(int deckId) {
+    public void deleteCard(int deckId, int cardId) {
         try {
-
+            this.open();
+            db.delete(dbHelper.CARD_TABLE, dbHelper.CARD_card_id+ " = ?", new String[]{Integer.toString(cardId)});
+            this.close();
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteCard ERROR: " + e.getMessage());
         }
