@@ -1,5 +1,7 @@
 package com.ojm.flashcardapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -45,6 +47,8 @@ import com.google.api.services.drive.DriveScopes;
 
 import com.google.api.services.drive.model.*;
 import com.ojm.flashcardapp.Cards.FlashCardDeck;
+import com.ojm.flashcardapp.Storage.DataStorage;
+import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -84,6 +88,8 @@ public class FlashCardListActivity extends AppCompatActivity {
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { DriveScopes.DRIVE_METADATA_READONLY };
 
+    private DataStorage dataStorage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +97,8 @@ public class FlashCardListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+
+        dataStorage = new SQLiteLocalStorage(FlashCardListActivity.this);
 
         list = new ArrayList<>();
 
@@ -167,9 +175,22 @@ public class FlashCardListActivity extends AppCompatActivity {
                         break;
                     case 1:
                         // delete
+                        new AlertDialog.Builder(FlashCardListActivity.this)
+                                .setTitle("Delete Deck")
+                                .setMessage("Are you sure you want to delete this deck?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        dataStorage.deleteDeck(0);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {}})
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                         break;
                 }
-                // false : close the menu; true : not close the menu
+
                 return false;
             }
 

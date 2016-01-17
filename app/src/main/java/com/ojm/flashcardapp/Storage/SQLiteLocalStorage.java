@@ -174,6 +174,10 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
             this.open();
             db.delete(dbHelper.DECK_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
+
+            // We also have to delete all of the cards from that deck.
+            db.delete(dbHelper.CARD_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
+
             this.close();
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteDeck ERROR: " + e.getMessage());

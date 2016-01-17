@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.ojm.flashcardapp.Cards.FlashCardDeck;
 import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteHelper;
 import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class CreateDeckActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_create_flash_card);
+        setContentView(R.layout.content_create_deck);
         ButterKnife.bind(this);
     }
 
@@ -45,14 +44,6 @@ public class CreateDeckActivity extends Activity {
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
-
-        /*
-            This looks terrible. Here's an idea:
-            - Make an individual card class that's supposed to take in necessary values.
-            - Some parts can be optional.
-            - Then we make an array of these cards. Sound good?
-
-         */
 
 
         FlashCardDeck deck = new FlashCardDeck("Test Deck", "flip-to-view", cards);
@@ -72,7 +63,7 @@ public class CreateDeckActivity extends Activity {
 
 
 
-        Intent intent = new Intent(CreateDeckActivity.this, FlashCardListActivity.class);
+        Intent intent = new Intent(CreateDeckActivity.this, CreateCardsActivity.class);
         startActivity(intent);
     }
 }
