@@ -1,7 +1,7 @@
 package com.ojm.flashcardapp.Storage;
 
-import com.ojm.flashcardapp.Cards.FlashCardDeck;
-import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+import com.ojm.flashcardapp.Cards.Deck;
+import com.ojm.flashcardapp.Cards.FlashCard;
 
 import java.util.ArrayList;
 
@@ -11,42 +11,42 @@ import java.util.ArrayList;
 public class GoogleDriveStorage implements DataStorage {
 
     @Override
-    public void addDeck(FlashCardDeck deck) {
+    public void addDeck(Deck deck) {
 
     }
 
     @Override
-    public void addCard(FlashCardSingleCard card, int deckId) {
+    public void addCard(FlashCard card, int deckId) {
 
     }
 
     @Override
-    public void modifyDeck(FlashCardDeck deck) {
+    public void modifyDeck(Deck deck) {
 
     }
 
     @Override
-    public void modifyCard(FlashCardSingleCard card, int deckId) {
+    public void modifyCard(FlashCard card, int deckId) {
 
     }
 
     @Override
-    public ArrayList<FlashCardDeck> getAllDecks() {
+    public ArrayList<Deck> getAllDecks() {
         return null;
     }
 
     @Override
-    public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId) {
+    public ArrayList<FlashCard> getAllCardsForDeck(int deckId) {
         return null;
     }
 
     @Override
-    public FlashCardDeck getDeck() {
+    public Deck getDeck() {
         return null;
     }
 
     @Override
-    public FlashCardSingleCard getCard(int deckId) {
+    public FlashCard getCard(int deckId) {
         return null;
     }
 

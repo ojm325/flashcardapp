@@ -6,8 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.ojm.flashcardapp.Cards.FlashCardDeck;
-import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+import com.ojm.flashcardapp.Cards.Deck;
+import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public void addDeck(FlashCardDeck deck) {
+    public void addDeck(Deck deck) {
         try {
             this.open();
             ContentValues values = new ContentValues();
@@ -52,7 +53,7 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public void addCard(FlashCardSingleCard card, int deckId) {
+    public void addCard(FlashCard card, int deckId) {
         try {
             this.open();
 
@@ -71,7 +72,7 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public void modifyDeck(FlashCardDeck deck) {
+    public void modifyDeck(Deck deck) {
         try {
 
         }catch(Exception e){
@@ -80,7 +81,7 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public void modifyCard(FlashCardSingleCard card, int deckId) {
+    public void modifyCard(FlashCard card, int deckId) {
         try {
 
         }catch(Exception e){
@@ -89,21 +90,21 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public ArrayList<FlashCardDeck> getAllDecks() {
+    public ArrayList<Deck> getAllDecks() {
         try {
             this.open();
 
-            ArrayList<FlashCardDeck> decks = new ArrayList<FlashCardDeck>();
+            ArrayList<Deck> decks = new ArrayList<Deck>();
             Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, null, null, null, null, null);
 
             if(cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()){
                     int deckId = cursor.getInt(cursor.getColumnIndex(dbHelper.DECK_deck_id));
                     String deckName = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_deck_name));
-                    ArrayList<FlashCardSingleCard> cards = this.getAllCardsForDeck(deckId);
+                    ArrayList<FlashCard> cards = this.getAllCardsForDeck(deckId);
 
 
-                    FlashCardDeck deck = new FlashCardDeck(deckName, null, cards);
+                    Deck deck = new Deck(deckName, null, cards);
                     decks.add(deck);
 
                     cursor.moveToNext();
@@ -120,11 +121,11 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public ArrayList<FlashCardSingleCard> getAllCardsForDeck(int deckId) {
+    public ArrayList<FlashCard> getAllCardsForDeck(int deckId) {
         try {
             this.open();
 
-            ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
+            ArrayList<FlashCard> cards = new ArrayList<FlashCard>();
             Cursor cursor = db.query(dbHelper.CARD_TABLE, allCardTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 
             if(cursor.moveToFirst()) {
@@ -132,7 +133,7 @@ public class SQLiteLocalStorage implements DataStorage {
                     String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
                     String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_answer));
 
-                    FlashCardSingleCard card = new FlashCardSingleCard(question, null, null, answer, null);
+                    FlashCard card = new FlashCardQuestionAndAnswer(question, null, null, answer, null);
                     cards.add(card);
 
                     cursor.moveToNext();
@@ -150,7 +151,7 @@ public class SQLiteLocalStorage implements DataStorage {
 
     // Maybe this will be used for when you select a deck from the list?
     @Override
-    public FlashCardDeck getDeck() {
+    public Deck getDeck() {
         try {
             return null;
         }catch(Exception e){
@@ -160,7 +161,7 @@ public class SQLiteLocalStorage implements DataStorage {
     }
 
     @Override
-    public FlashCardSingleCard getCard(int deckId) {
+    public FlashCard getCard(int deckId) {
         try {
             return null;
         }catch(Exception e){

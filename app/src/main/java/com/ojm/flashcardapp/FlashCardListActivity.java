@@ -7,18 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -41,42 +35,31 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.ExponentialBackOff;
 
 import com.google.api.services.drive.DriveScopes;
 
 import com.google.api.services.drive.model.*;
-import com.ojm.flashcardapp.Cards.FlashCardDeck;
+import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
 
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FlashCardListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.deckList) SwipeMenuListView deckList;
     private List<String> list;
+    private List<Deck> decks;
 
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
@@ -99,12 +82,15 @@ public class FlashCardListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         dataStorage = new SQLiteLocalStorage(FlashCardListActivity.this);
+        dataStorage.getAllDecks();
 
+        decks = dataStorage.getAllDecks();
         list = new ArrayList<>();
 
-        list.add("Test 1");
-        list.add("Test 2");
-        list.add("Test 3");
+        for(int i = 0; i < decks.size(); i++){
+            Deck deck = decks.get(i);
+            list.add(deck.getDeckName());
+        }
 
         swipeMenuFunctionality();
 

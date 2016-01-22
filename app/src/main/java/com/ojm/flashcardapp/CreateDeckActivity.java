@@ -7,8 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.ojm.flashcardapp.Cards.FlashCardDeck;
-import com.ojm.flashcardapp.Cards.FlashCardSingleCard;
+import com.ojm.flashcardapp.Cards.Deck;
+import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
 
@@ -35,18 +35,18 @@ public class CreateDeckActivity extends Activity {
     public void nextButton(View view) {
         DataStorage localStorage = new SQLiteLocalStorage(getApplicationContext());
 
-        ArrayList<FlashCardSingleCard> cards = new ArrayList<FlashCardSingleCard>();
+        ArrayList<FlashCard> cards = new ArrayList<FlashCard>();
 
-        FlashCardSingleCard card1 = new FlashCardSingleCard("Is this a question?", null, null, "Yes", null);
-        FlashCardSingleCard card2 = new FlashCardSingleCard("What's your name?", null, null, "Omar", null);
-        FlashCardSingleCard card3 = new FlashCardSingleCard("What band was Mark Kozelek in?", null, null, "Red House Painters", null);
+        FlashCard card1 = new FlashCard("Is this a question?", null, null, "Yes", null);
+        FlashCard card2 = new FlashCard("What's your name?", null, null, "Omar", null);
+        FlashCard card3 = new FlashCard("What band was Mark Kozelek in?", null, null, "Red House Painters", null);
 
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
 
 
-        FlashCardDeck deck = new FlashCardDeck("Test Deck", "flip-to-view", cards);
+        Deck deck = new Deck("Test Deck", "flip-to-view", cards);
 
         localStorage.addDeck(deck);
         for(int i = 0; i < cards.size(); i++) {
@@ -54,10 +54,10 @@ public class CreateDeckActivity extends Activity {
         }
 
 
-        ArrayList<FlashCardSingleCard> arr = localStorage.getAllCardsForDeck(0);
+        ArrayList<FlashCard> arr = localStorage.getAllCardsForDeck(0);
 
         for(int i = 0; i < arr.size(); i++){
-            FlashCardSingleCard card = arr.get(i);
+            FlashCard card = arr.get(i);
             Log.d("CARD IN DECK", card.getQuestion());
         }
 

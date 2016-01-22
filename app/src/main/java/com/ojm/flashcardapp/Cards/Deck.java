@@ -5,12 +5,12 @@ import java.util.ArrayList;
 /**
  * Created by omar on 11/22/15.
  */
-public class FlashCardDeck {
+public class Deck {
     private String deckName;
     private String deckType;
-    private ArrayList<FlashCardSingleCard> cards;
+    private ArrayList<FlashCard> cards;
 
-    public FlashCardDeck(String deckName, String deckType, ArrayList cards){
+    public Deck(String deckName, String deckType, ArrayList cards){
         this.deckName = deckName;
         this.deckType = deckType;
         this.cards = cards;
@@ -21,7 +21,7 @@ public class FlashCardDeck {
     public String getDeckType(){
         return this.deckType;
     }
-    public ArrayList<FlashCardSingleCard> getCards(){
+    public ArrayList<FlashCard> getCards(){
         return this.cards;
     }
 }
