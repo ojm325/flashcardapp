@@ -58,6 +58,7 @@ public class DeckListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.deckList) SwipeMenuListView deckList;
+
     private List<String> list;
     private List<Deck> decks;
 
@@ -244,6 +245,7 @@ public class DeckListActivity extends AppCompatActivity {
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch(requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
@@ -274,7 +276,6 @@ public class DeckListActivity extends AppCompatActivity {
                 break;
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

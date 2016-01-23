@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 
 import butterknife.Bind;
@@ -21,6 +22,20 @@ public class CardListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card_list);
         ButterKnife.bind(this);
+
+        int deckId;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                deckId= 0;
+            } else {
+                deckId= extras.getInt("DECK_ID");
+            }
+        } else {
+            deckId = (int) savedInstanceState.getSerializable("DECK_ID");
+        }
+
+        Log.d("DECK_ID", ""+deckId);
     }
 
     @OnClick(R.id.fab)

@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
@@ -25,7 +27,7 @@ import butterknife.OnClick;
  */
 public class CreateDeckActivity extends Activity {
     @Bind(R.id.next) Button next;
-    @Bind(R.id.deckNameTextView) Button deckNameTextView;
+    @Bind(R.id.deckNameTextView) TextView deckNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class CreateDeckActivity extends Activity {
         String deckName = deckNameTextView.getText().toString();
         String[] deckNameLetters = deckName.split("");
 
-        if(deckName.isEmpty() || deckNameLetters.length > 3){
+        if(deckName.isEmpty() || deckNameLetters.length < 4){
             new AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage("Deck name is too short. Your deck name must contain more than three letters.")
@@ -55,8 +57,11 @@ public class CreateDeckActivity extends Activity {
         }else {
             Deck deck = new Deck(deckName, "flip-to-view", null);
             localStorage.addDeck(deck);
+            ArrayList tempDeck = localStorage.getAllDecks();
+            int deckId = tempDeck.size() - 1;
 
-            Intent intent = new Intent(CreateDeckActivity.this, CreateCardActivity.class);
+            Intent intent = new Intent(CreateDeckActivity.this, CardListActivity.class);
+            intent.putExtra("DECK_ID", deckId);
             startActivity(intent);
         }
     }

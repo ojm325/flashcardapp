@@ -10,7 +10,7 @@ import android.util.Log;
 public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = "SQLiteHelper";
 
-    public static final String DB_NAME = "flashcardsTEST1.db";
+    public static final String DB_NAME = "flashcardsTEST2.db";
     public static final int DB_VERSION = 1;
     public static final String DECK_TABLE = "deck_table";
     public static final String CARD_TABLE = "card_table";
