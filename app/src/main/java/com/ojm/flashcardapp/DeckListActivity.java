@@ -54,7 +54,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-public class FlashCardListActivity extends AppCompatActivity {
+public class DeckListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.deckList) SwipeMenuListView deckList;
@@ -81,7 +81,7 @@ public class FlashCardListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        dataStorage = new SQLiteLocalStorage(FlashCardListActivity.this);
+        dataStorage = new SQLiteLocalStorage(DeckListActivity.this);
         dataStorage.getAllDecks();
 
         decks = dataStorage.getAllDecks();
@@ -156,12 +156,12 @@ public class FlashCardListActivity extends AppCompatActivity {
                 Log.d("POSITION ", "" + position);
                 switch (index) {
                     case 0:
-                        Intent intent = new Intent(FlashCardListActivity.this, FlashCardActivity.class);
+                        Intent intent = new Intent(DeckListActivity.this, FlashCardActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
                         // delete
-                        new AlertDialog.Builder(FlashCardListActivity.this)
+                        new AlertDialog.Builder(DeckListActivity.this)
                                 .setTitle("Delete Deck")
                                 .setMessage("Are you sure you want to delete this deck?")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -188,12 +188,7 @@ public class FlashCardListActivity extends AppCompatActivity {
      */
     @OnClick(R.id.fab)
     public void fab(View view){
-        /*
-        list.add("Test 4");
-        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
-        deckList.setAdapter(adapter);
-        */
-        Intent intent = new Intent(FlashCardListActivity.this, CreateDeckActivity.class);
+        Intent intent = new Intent(DeckListActivity.this, CreateDeckActivity.class);
         startActivity(intent);
     }
 
@@ -348,7 +343,7 @@ public class FlashCardListActivity extends AppCompatActivity {
             final int connectionStatusCode) {
         Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
                 connectionStatusCode,
-                FlashCardListActivity.this,
+                DeckListActivity.this,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
     }
@@ -438,7 +433,7 @@ public class FlashCardListActivity extends AppCompatActivity {
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            FlashCardListActivity.REQUEST_AUTHORIZATION);
+                            DeckListActivity.REQUEST_AUTHORIZATION);
                 } else {
                     //mOutputText.setText("The following error occurred:\n"
                             //+ mLastError.getMessage());

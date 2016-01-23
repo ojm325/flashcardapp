@@ -14,12 +14,10 @@ public class FlashCardQuestionAndAnswer implements FlashCard{
 
     public FlashCardQuestionAndAnswer(String question,
                      String questionPicture,
-                     ArrayList multipleChoices,
                      String answer,
                      String cardNote) {
         this.question = question;
         this.questionPicture = questionPicture;
-        this.multipleChoices = multipleChoices;
         this.answer = answer;
         this.cardNote = cardNote;
     }

@@ -133,7 +133,7 @@ public class SQLiteLocalStorage implements DataStorage {
                     String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
                     String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_answer));
 
-                    FlashCard card = new FlashCardQuestionAndAnswer(question, null, null, answer, null);
+                    FlashCard card = new FlashCardQuestionAndAnswer(question, null, answer, null);
                     cards.add(card);
 
                     cursor.moveToNext();

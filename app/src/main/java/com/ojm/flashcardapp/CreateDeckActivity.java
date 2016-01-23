@@ -1,6 +1,8 @@
 package com.ojm.flashcardapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,11 +25,12 @@ import butterknife.OnClick;
  */
 public class CreateDeckActivity extends Activity {
     @Bind(R.id.next) Button next;
+    @Bind(R.id.deckNameTextView) Button deckNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_create_deck);
+        setContentView(R.layout.activity_create_deck);
         ButterKnife.bind(this);
     }
 
@@ -35,35 +38,26 @@ public class CreateDeckActivity extends Activity {
     public void nextButton(View view) {
         DataStorage localStorage = new SQLiteLocalStorage(getApplicationContext());
 
-        ArrayList<FlashCard> cards = new ArrayList<FlashCard>();
+        String deckName = deckNameTextView.getText().toString();
+        String[] deckNameLetters = deckName.split("");
 
-        FlashCard card1 = new FlashCard("Is this a question?", null, null, "Yes", null);
-        FlashCard card2 = new FlashCard("What's your name?", null, null, "Omar", null);
-        FlashCard card3 = new FlashCard("What band was Mark Kozelek in?", null, null, "Red House Painters", null);
+        if(deckName.isEmpty() || deckNameLetters.length > 3){
+            new AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Deck name is too short. Your deck name must contain more than three letters.")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }else {
+            Deck deck = new Deck(deckName, "flip-to-view", null);
+            localStorage.addDeck(deck);
 
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
-
-
-        Deck deck = new Deck("Test Deck", "flip-to-view", cards);
-
-        localStorage.addDeck(deck);
-        for(int i = 0; i < cards.size(); i++) {
-            localStorage.addCard(cards.get(i), 0);
+            Intent intent = new Intent(CreateDeckActivity.this, CreateCardActivity.class);
+            startActivity(intent);
         }
-
-
-        ArrayList<FlashCard> arr = localStorage.getAllCardsForDeck(0);
-
-        for(int i = 0; i < arr.size(); i++){
-            FlashCard card = arr.get(i);
-            Log.d("CARD IN DECK", card.getQuestion());
-        }
-
-
-
-        Intent intent = new Intent(CreateDeckActivity.this, CreateCardsActivity.class);
-        startActivity(intent);
     }
 }

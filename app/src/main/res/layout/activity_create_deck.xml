@@ -10,14 +10,14 @@
         android:id="@+id/textView" />
 
     <EditText
-        android:layout_width="232dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText" />
+        android:id="@+id/deckNameTextView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deck Type:"
+        android:text="Deck Type Default (You may change the type of cards later):"
         android:id="@+id/textView2" />
 
     <RadioGroup
