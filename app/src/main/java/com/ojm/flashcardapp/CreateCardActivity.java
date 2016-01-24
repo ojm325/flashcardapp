@@ -1,6 +1,7 @@
 package com.ojm.flashcardapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -24,11 +25,15 @@ public class CreateCardActivity extends Activity {
     @Bind(R.id.questionTextView) TextView questionTextView;
     @Bind(R.id.answerTextView) TextView answerTextView;
 
+    private int deckId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_card);
         ButterKnife.bind(this);
+
+        deckId = getIntent().getIntExtra("DECK_ID", 0);
     }
 
     @OnClick(R.id.createCardButton)
@@ -39,7 +44,11 @@ public class CreateCardActivity extends Activity {
         FlashCard card = new FlashCardQuestionAndAnswer(question, null, answer, null);
 
         DataStorage dataStorage = new SQLiteLocalStorage(this);
-        dataStorage.addCard(card, 0);
+        dataStorage.addCard(card, deckId);
+
+        Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
+        intent.putExtra("DECK_ID", deckId);
+        startActivity(intent);
 
     }
 

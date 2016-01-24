@@ -47,6 +47,7 @@ public class DeckOptionsActivity extends Activity {
 
         Deck deck = dataStorage.getDeck(deckId);
         deckNameTextView.setText(deck.getDeckName());
+        Log.d("Cards in deck", "" + deck.getCards().size());
         //cardsInDeckTextView.setText(deck.getCards().size());
     }
 
@@ -64,7 +65,7 @@ public class DeckOptionsActivity extends Activity {
     @OnClick(R.id.modifyDeckButton)
     public void setModifyDeckButton(View view) {
         Intent intent = new Intent(DeckOptionsActivity.this, CardListActivity.class);
-        //intent.putExtra("DECK_ID", deckId);
+        intent.putExtra("DECK_ID", deckId);
         startActivity(intent);
     }
 

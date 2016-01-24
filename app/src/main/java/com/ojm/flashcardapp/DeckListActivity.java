@@ -1,31 +1,16 @@
 package com.ojm.flashcardapp;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +51,6 @@ public class DeckListActivity extends AppCompatActivity {
     @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.deckList) ListView deckList;
 
-    private List<String> list;
     private List<Deck> decks;
 
     GoogleAccountCredential mCredential;
@@ -85,7 +69,7 @@ public class DeckListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_card_list);
+        setContentView(R.layout.activity_deck_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
@@ -94,12 +78,10 @@ public class DeckListActivity extends AppCompatActivity {
         dataStorage.getAllDecks();
 
         decks = dataStorage.getAllDecks();
-        list = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.deck_list_item);
 
         for(int i = 0; i < decks.size(); i++){
             Deck deck = decks.get(i);
-            list.add(deck.getDeckName());
             adapter.add(deck.getDeckName());
         }
 
