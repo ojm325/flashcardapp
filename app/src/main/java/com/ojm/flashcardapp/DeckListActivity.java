@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -108,6 +109,13 @@ public class DeckListActivity extends AppCompatActivity {
 
     }
 
+    @OnItemClick(R.id.deckList)
+    public void setDeckListRowClick(int position){
+        Intent intent = new Intent(DeckListActivity.this, DeckOptionsActivity.class);
+        position++;
+        intent.putExtra("DECK_ID", position);
+        startActivity(intent);
+    }
 
     /*
         Add Deck Button, or floating action button

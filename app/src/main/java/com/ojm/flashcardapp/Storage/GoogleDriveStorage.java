@@ -41,7 +41,7 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public Deck getDeck() {
+    public Deck getDeck(int deckId) {
         return null;
     }
 

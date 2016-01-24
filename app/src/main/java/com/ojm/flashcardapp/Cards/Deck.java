@@ -15,6 +15,16 @@ public class Deck {
         this.deckType = deckType;
         this.cards = cards;
     }
+    public void setDeckName(String dN){
+        this.deckName = dN;
+    }
+    //Do I even need this
+    public void setDeckType(String dT){
+        this.deckType = dT;
+    }
+    public void setCards(ArrayList c){
+        this.cards = c;
+    }
     public String getDeckName(){
         return this.deckName;
     }

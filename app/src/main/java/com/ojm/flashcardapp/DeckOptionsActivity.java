@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class DeckOptionsActivity extends Activity {
     @Bind(R.id.cardsInDeckTextView) TextView cardsInDeckTextView;
 
     protected DataStorage dataStorage;
+    protected int deckId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class DeckOptionsActivity extends Activity {
         ButterKnife.bind(this);
 
         dataStorage = new SQLiteLocalStorage(this);
+        deckId = getIntent().getIntExtra("DECK_ID", 0);
+        Log.d("DECK_ID", ""+deckId);
+
+        Deck deck = dataStorage.getDeck(deckId);
+        deckNameTextView.setText(deck.getDeckName());
+        //cardsInDeckTextView.setText(deck.getCards().size());
     }
 
     @OnClick(R.id.useDeckButton)

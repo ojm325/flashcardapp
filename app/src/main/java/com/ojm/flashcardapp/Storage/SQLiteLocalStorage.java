@@ -151,9 +151,29 @@ public class SQLiteLocalStorage implements DataStorage {
 
     // Maybe this will be used for when you select a deck from the list?
     @Override
-    public Deck getDeck() {
+    public Deck getDeck(int deckId) {
         try {
-            return null;
+            this.open();
+
+            Deck deck = new Deck(null, null, null);
+
+            Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
+
+            if(cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()){
+                    String deckName = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_deck_name));
+                    ArrayList<FlashCard>cards = this.getAllCardsForDeck(deckId);
+
+                    deck.setDeckName(deckName);
+                    deck.setCards(cards);
+
+                    cursor.moveToNext();
+                }
+            }
+
+            this.close();
+
+            return deck;
         }catch(Exception e){
             Log.e(LOG_TAG, "getDeck ERROR: " + e.getMessage());
             return null;
