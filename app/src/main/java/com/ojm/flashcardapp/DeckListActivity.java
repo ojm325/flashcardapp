@@ -13,6 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -57,7 +63,7 @@ import java.io.IOException;
 public class DeckListActivity extends AppCompatActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;
-    @Bind(R.id.deckList) SwipeMenuListView deckList;
+    @Bind(R.id.deckList) ListView deckList;
 
     private List<String> list;
     private List<Deck> decks;
@@ -73,6 +79,7 @@ public class DeckListActivity extends AppCompatActivity {
     private static final String[] SCOPES = { DriveScopes.DRIVE_METADATA_READONLY };
 
     private DataStorage dataStorage;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,102 +94,20 @@ public class DeckListActivity extends AppCompatActivity {
 
         decks = dataStorage.getAllDecks();
         list = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(this, R.layout.deck_list_item);
 
         for(int i = 0; i < decks.size(); i++){
             Deck deck = decks.get(i);
             list.add(deck.getDeckName());
+            adapter.add(deck.getDeckName());
         }
 
-        swipeMenuFunctionality();
-
-    }
-
-    protected void swipeMenuFunctionality(){
-        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.deck_list_item, list);
         deckList.setAdapter(adapter);
 
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
 
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
 
-                // set item width
-                openItem.setBackground((new ColorDrawable(Color.BLUE)));
-                openItem.setWidth(200);
-                // set item title
-                openItem.setTitle("Open");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                openItem.setTitleColor(Color.BLACK);
-                // set item title font color
-                // add to menu
-                menu.addMenuItem(openItem);
-
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                // set item width
-                deleteItem.setWidth(200);
-                deleteItem.setTitleSize(18);
-                deleteItem.setTitleColor(Color.BLACK);
-                deleteItem.setBackground((new ColorDrawable(Color.RED)));
-                // set a icon
-                deleteItem.setTitle("DELETE");
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        deckList.setMenuCreator(creator);
-
-        deckList.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-            @Override
-            public void onSwipeStart(int position) {
-
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-
-            }
-        });
-
-        deckList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                Log.d("POSITION ", "" + position);
-                switch (index) {
-                    case 0:
-                        Intent intent = new Intent(DeckListActivity.this, FlashCardActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        // delete
-                        new AlertDialog.Builder(DeckListActivity.this)
-                                .setTitle("Delete Deck")
-                                .setMessage("Are you sure you want to delete this deck?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // continue with delete
-                                        dataStorage.deleteDeck(0);
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {}})
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                        break;
-                }
-
-                return false;
-            }
-
-        });
     }
+
 
     /*
         Add Deck Button, or floating action button
