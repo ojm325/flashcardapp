@@ -46,9 +46,15 @@ public class CreateCardActivity extends Activity {
         DataStorage dataStorage = new SQLiteLocalStorage(this);
         dataStorage.addCard(card, deckId);
 
+        /*
         Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
         intent.putExtra("DECK_ID", deckId);
         startActivity(intent);
+        */
+        Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
+        intent.putExtra("DECK_ID", deckId);
+        setResult(RESULT_OK, intent);
+        this.finish();
 
     }
 

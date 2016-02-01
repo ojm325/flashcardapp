@@ -21,6 +21,14 @@
         android:text="cardsInDeck"
         android:id="@+id/cardsInDeckTextView" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deck Alert Notice Goes Here"
+        android:id="@+id/deckAlertTextView"
+        android:textStyle="bold"
+        android:textColor="#ff0000" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

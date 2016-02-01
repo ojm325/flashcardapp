@@ -31,6 +31,7 @@ public class DeckOptionsActivity extends Activity {
     @Bind(R.id.deckNameTextView) TextView deckNameTextView;
     @Bind(R.id.deckDescriptionTextView) TextView deckDescriptionTextView;
     @Bind(R.id.cardsInDeckTextView) TextView cardsInDeckTextView;
+    @Bind(R.id.deckAlertTextView) TextView deckAlertTextView;
 
     protected DataStorage dataStorage;
     protected int deckId;
@@ -43,12 +44,21 @@ public class DeckOptionsActivity extends Activity {
 
         dataStorage = new SQLiteLocalStorage(this);
         deckId = getIntent().getIntExtra("DECK_ID", 0);
-        Log.d("DECK_ID", ""+deckId);
+        Log.d("DECK_ID", "" + deckId);
 
         Deck deck = dataStorage.getDeck(deckId);
         deckNameTextView.setText(deck.getDeckName());
         Log.d("Cards in deck", "" + deck.getCards().size());
+        cardsInDeckTextView.setText("Cards In Deck: "+deck.getCards().size());
         //cardsInDeckTextView.setText(deck.getCards().size());
+
+        if(deck.getCards().size() <= 0){
+            deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
+            useDeckButton.setEnabled(false);
+            deckStatsButton.setEnabled(false);
+        }else{
+            deckAlertTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     @OnClick(R.id.useDeckButton)

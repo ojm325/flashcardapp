@@ -52,6 +52,7 @@ public class QuizTakingActivity extends Activity implements SensorEventListener{
             case (MotionEvent.ACTION_DOWN):
                 return true;
             case (MotionEvent.ACTION_UP):
+                Log.d("ACTION!", "swipe up");
                 return true;
             default:
                 return super.onTouchEvent(event);

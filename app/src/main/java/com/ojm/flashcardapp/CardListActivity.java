@@ -55,11 +55,26 @@ public class CardListActivity extends Activity {
         Log.d("DECK_ID", ""+deckId);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            Intent refresh = new Intent(this, CardListActivity.class);
+
+            deckId = getIntent().getIntExtra("DECK_ID", 0);
+            refresh.putExtra("DECK_ID", deckId);
+            
+            startActivity(refresh);
+            this.finish();
+        }
+    }
+
     @OnClick(R.id.fab)
     public void fab(View view){
         Intent intent = new Intent(CardListActivity.this, CreateCardActivity.class);
         intent.putExtra("DECK_ID", deckId);
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
 }
