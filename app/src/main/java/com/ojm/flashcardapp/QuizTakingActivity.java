@@ -1,6 +1,7 @@
 package com.ojm.flashcardapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
@@ -27,6 +29,8 @@ public class QuizTakingActivity extends Activity implements SensorEventListener{
     @Bind(R.id.cardAnswerTextView) TextView cardAnswer;
 
     protected int deckId;
+    protected int cardId;
+    protected Deck deck;
 
 
     @Override
@@ -36,13 +40,16 @@ public class QuizTakingActivity extends Activity implements SensorEventListener{
         ButterKnife.bind(this);
 
         deckId = getIntent().getIntExtra("DECK_ID", 0);
+        cardId = getIntent().getIntExtra("CARD_ID", 0);
 
         DataStorage dataStorage = new SQLiteLocalStorage(this);
 
-        Deck deck = dataStorage.getDeck(deckId);
-        Log.d("CARDS", String.valueOf(deck.getCards().size()));
-        populateCard(deck.getCards().get(0));
+        deck = dataStorage.getDeck(deckId);
+        Log.d("CARDS", String.valueOf(cardId));
+        populateCard(deck.getCards().get(cardId));
     }
+
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -50,9 +57,24 @@ public class QuizTakingActivity extends Activity implements SensorEventListener{
 
         switch (action){
             case (MotionEvent.ACTION_DOWN):
+                Log.d("ACTION!", "swipe down");
+
+                if(cardId == 0){
+                    Toast.makeText(getApplicationContext(), "You're at the beginning of the deck.", Toast.LENGTH_SHORT).show();
+                }else {
+                    populateCard(deck.getCards().get(cardId--));
+                }
+
                 return true;
             case (MotionEvent.ACTION_UP):
                 Log.d("ACTION!", "swipe up");
+
+                if(cardId == deck.getCards().size()-1){
+                    Toast.makeText(getApplicationContext(), "No more cards to show.", Toast.LENGTH_SHORT).show();
+                }else {
+                    populateCard(deck.getCards().get(cardId++));
+                }
+
                 return true;
             default:
                 return super.onTouchEvent(event);

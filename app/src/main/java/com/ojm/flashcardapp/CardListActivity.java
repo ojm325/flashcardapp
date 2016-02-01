@@ -63,7 +63,7 @@ public class CardListActivity extends Activity {
 
             deckId = getIntent().getIntExtra("DECK_ID", 0);
             refresh.putExtra("DECK_ID", deckId);
-            
+
             startActivity(refresh);
             this.finish();
         }
@@ -73,7 +73,6 @@ public class CardListActivity extends Activity {
     public void fab(View view){
         Intent intent = new Intent(CardListActivity.this, CreateCardActivity.class);
         intent.putExtra("DECK_ID", deckId);
-        //startActivity(intent);
         startActivityForResult(intent, 1);
     }
 
