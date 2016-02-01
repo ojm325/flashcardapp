@@ -53,7 +53,8 @@ public class DeckOptionsActivity extends Activity {
 
     @OnClick(R.id.useDeckButton)
     public void setUseDeckButton(View view) {
-        Intent intent = new Intent(DeckOptionsActivity.this, FlashCardActivity.class);
+        Intent intent = new Intent(DeckOptionsActivity.this, QuizTakingActivity.class);
+        intent.putExtra("DECK_ID", deckId);
         startActivity(intent);
     }
 
