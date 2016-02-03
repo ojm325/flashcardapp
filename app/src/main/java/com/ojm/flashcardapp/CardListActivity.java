@@ -1,10 +1,12 @@
 package com.ojm.flashcardapp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,13 +25,14 @@ import butterknife.OnClick;
 /**
  * Created by Omar on 1/22/2016.
  */
-public class CardListActivity extends Activity {
+public class CardListActivity extends BaseActivity {
     @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.cardList) ListView cardList;
 
     private DataStorage dataStorage;
     private ArrayAdapter<String> adapter;
     private int deckId;
+    private Deck deck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,11 @@ public class CardListActivity extends Activity {
 
         deckId = getIntent().getIntExtra("DECK_ID", 0);
 
-        ArrayList<FlashCard> cards = dataStorage.getAllCardsForDeck(deckId);
+        deck = dataStorage.getDeck(deckId);
+
+        setTitle(deck.getDeckName());
+
+        ArrayList<FlashCard> cards = deck.getCards();
 
         adapter = new ArrayAdapter<String>(this, R.layout.deck_list_item);
 
@@ -54,6 +61,7 @@ public class CardListActivity extends Activity {
 
         Log.d("DECK_ID", ""+deckId);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

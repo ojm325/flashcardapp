@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ import butterknife.OnClick;
 /**
  * Created by Omar on 1/23/2016.
  */
-public class DeckOptionsActivity extends Activity {
+public class DeckOptionsActivity extends BaseActivity {
     @Bind(R.id.useDeckButton) Button useDeckButton;
     @Bind(R.id.deckStatsButton) Button deckStatsButton;
     @Bind(R.id.modifyDeckButton) Button modifyDeckButton;
@@ -48,6 +49,7 @@ public class DeckOptionsActivity extends Activity {
 
         Deck deck = dataStorage.getDeck(deckId);
         deckNameTextView.setText(deck.getDeckName());
+        setTitle(deck.getDeckName());
         Log.d("Cards in deck", "" + deck.getCards().size());
         cardsInDeckTextView.setText("Cards In Deck: "+deck.getCards().size());
         //cardsInDeckTextView.setText(deck.getCards().size());
@@ -59,6 +61,12 @@ public class DeckOptionsActivity extends Activity {
         }else{
             deckAlertTextView.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_flash_card_list, menu);
+        return true;
     }
 
     @OnClick(R.id.useDeckButton)

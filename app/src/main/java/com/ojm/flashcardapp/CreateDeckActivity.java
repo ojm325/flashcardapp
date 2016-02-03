@@ -25,7 +25,7 @@ import butterknife.OnClick;
 /**
  * Created by omar on 11/20/15.
  */
-public class CreateDeckActivity extends Activity {
+public class CreateDeckActivity extends BaseActivity {
     @Bind(R.id.next) Button next;
     @Bind(R.id.deckNameTextView) TextView deckNameTextView;
 

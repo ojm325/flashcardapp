@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Omar on 1/31/2016.
  */
-public class QuizTakingActivity extends Activity implements SensorEventListener{
+public class QuizTakingActivity extends BaseActivity implements SensorEventListener{
     @Bind(R.id.cardQuestionTextView) TextView cardQuestion;
     @Bind(R.id.cardAnswerTextView) TextView cardAnswer;
 
@@ -46,6 +46,9 @@ public class QuizTakingActivity extends Activity implements SensorEventListener{
 
         deck = dataStorage.getDeck(deckId);
         Log.d("CARDS", String.valueOf(cardId));
+
+        setTitle(deck.getDeckName());
+
         populateCard(deck.getCards().get(cardId));
     }
 

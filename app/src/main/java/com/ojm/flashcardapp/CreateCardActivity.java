@@ -20,7 +20,7 @@ import butterknife.OnClick;
 /**
  * Created by Omar on 1/17/2016.
  */
-public class CreateCardActivity extends Activity {
+public class CreateCardActivity extends BaseActivity {
     @Bind(R.id.createCardButton) Button createCardButton;
     @Bind(R.id.questionTextView) TextView questionTextView;
     @Bind(R.id.answerTextView) TextView answerTextView;

@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 /**
  * Created by omar on 11/22/15.
  */
-public class FlashCardActivity extends Activity {
+public class FlashCardActivity extends BaseActivity {
     @Bind(R.id.cardQuestionTextView) TextView cardQuestion;
     @Bind(R.id.cardAnswerTextView) TextView cardAnswer;
 
@@ -28,6 +28,9 @@ public class FlashCardActivity extends Activity {
 
         DataStorage dataStorage = new SQLiteLocalStorage(this);
         Deck deck = dataStorage.getDeck(0);
+
+        setTitle(deck.getDeckName());
+
         populateCard(deck.getCards().get(0));
     }
 
