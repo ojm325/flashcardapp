@@ -32,6 +32,8 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
     protected int cardId;
     protected Deck deck;
 
+    protected float yDown, yUp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +62,34 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
         switch (action){
             case (MotionEvent.ACTION_DOWN):
-                Log.d("ACTION!", "swipe down");
+                Log.d("SWIPE DOWN", "yDown "+yDown+" || "+yUp+ " :: "+cardId);
 
-                if(cardId == 0){
-                    Toast.makeText(getApplicationContext(), "You're at the beginning of the deck.", Toast.LENGTH_SHORT).show();
-                }else {
-                    populateCard(deck.getCards().get(cardId--));
+                yDown = event.getY();
+
+                if (yDown < yUp){
+                    if(cardId == 0){
+                        Toast.makeText(getApplicationContext(), "You're at the beginning of the deck.", Toast.LENGTH_SHORT).show();
+                        populateCard(deck.getCards().get(cardId));
+                    }else {
+                        if(cardId >= deck.getCards().size()){
+                            cardId = deck.getCards().size()-2;
+                        }
+                        populateCard(deck.getCards().get(cardId--));
+                    }
                 }
 
                 return true;
             case (MotionEvent.ACTION_UP):
-                Log.d("ACTION!", "swipe up");
+                Log.d("SWIPE UP", "yDown "+yDown+" || "+yUp+ " :: "+cardId);
 
-                if(cardId == deck.getCards().size()-1){
-                    Toast.makeText(getApplicationContext(), "No more cards to show.", Toast.LENGTH_SHORT).show();
-                }else {
-                    populateCard(deck.getCards().get(cardId++));
+                yUp = event.getY();
+
+                if (yDown > yUp){
+                    if(cardId == deck.getCards().size()){
+                        Toast.makeText(getApplicationContext(), "No more cards to show.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        populateCard(deck.getCards().get(cardId++));
+                    }
                 }
 
                 return true;
