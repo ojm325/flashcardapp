@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Card Question:"
-        android:id="@+id/textView3" />
+        android:id="@+id/CardQuestion" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Card Answer"
-        android:id="@+id/textView4" />
+        android:id="@+id/CardAnswer" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -29,16 +29,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Advanced Options"
-        android:id="@+id/textView5" />
+        android:id="@+id/AdvancedOptions" />
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="114dp">
+        android:layout_height="wrap_content">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></RadioGroup>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question and Answer"
+            android:id="@+id/questionAndAnswerRadioButton"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Multiple Choice"
+            android:id="@+id/multipleChoiceRadioButton"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Multiple Answers"
+            android:id="@+id/multipleAnswersRadioButton"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="True or False"
+            android:id="@+id/trueOrFalseRadioButton"
+            android:checked="false" />
     </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card Notes"
+        android:id="@+id/CardNotes" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardNotesTextField" />
 
     <Button
         android:layout_width="wrap_content"

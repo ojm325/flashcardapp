@@ -9,6 +9,7 @@ import java.util.Map;
  */
 public interface FlashCard {
     public String getQuestion();
-    public String getAnswer();
+    public void setQuestion(String question);
     public String getCardNote();
+    public void setCardNote(String cardNote);
 }

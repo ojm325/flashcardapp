@@ -22,18 +22,24 @@ public class FlashCardQuestionAndAnswer implements FlashCard{
         this.cardNote = cardNote;
     }
 
-    @Override
     public String getQuestion() {
         return question;
     }
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 
-    @Override
     public String getAnswer() {
         return answer;
     }
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
-    @Override
     public String getCardNote() {
         return getCardNote();
+    }
+    public void setCardNote(String cardNote) {
+        this.cardNote = cardNote;
     }
 }
