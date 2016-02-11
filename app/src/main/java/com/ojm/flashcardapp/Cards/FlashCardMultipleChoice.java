@@ -8,12 +8,12 @@ import java.util.List;
 public class FlashCardMultipleChoice implements FlashCard {
     private String question;
     private List<String> choices;
-    private List<String> answer;
+    private String answer;
     private String cardNote;
 
     public FlashCardMultipleChoice(String question,
                                    List<String> choices,
-                                   List<String> answer,
+                                   String answer,
                                    String cardNote) {
         this.question = question;
         this.choices = choices;
@@ -31,8 +31,9 @@ public class FlashCardMultipleChoice implements FlashCard {
         this.choices = choices;
     }
 
-    public List<String> getAnswer() { return answer; }
-    public void setAnswer(List<String> answer) {
+    // Figure out best approach for multiple answers
+    public String getAnswer() { return answer; }
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 

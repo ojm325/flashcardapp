@@ -10,6 +10,9 @@ import java.util.Map;
 public interface FlashCard {
     public String getQuestion();
     public void setQuestion(String question);
+    public String getAnswer();
+    public void setAnswer(String answer);
     public String getCardNote();
     public void setCardNote(String cardNote);
+
 }

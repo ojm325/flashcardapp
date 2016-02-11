@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Placeholder color palate: http://adobe.ly/1RrU3YA
+-->
+
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2A5769</color>
+    <color name="colorPrimaryDark">#002E40</color>
+    <color name="colorAccent">#FA9600</color>
 </resources>
