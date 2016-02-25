@@ -1,0 +1,47 @@
+The potential tables for the Flashcard app:
+
+CREATE TABLE 'Deck' (
+'deck_id' INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+'deck_name' TEXT DEFAULT NULL
+);
+
+CREATE TABLE 'Card' (
+'card_id' INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+'question' TEXT DEFAULT NULL,
+'answer' TEXT DEFAULT NULL,
+'card_note' TEXT DEFAULT NULL,
+'deck_id' INTEGER NOT NULL  DEFAULT NULL,
+'choices_id' INTEGER DEFAULT NULL
+);
+
+CREATE TABLE 'Card_Choices' (
+'choice_id' INTEGER NOT NULL  PRIMARY KEY,
+'deck_id' INTEGER NOT NULL ,
+'card_id' INTEGER DEFAULT NULL,
+'choice' TEXT DEFAULT NULL
+);
+
+CREATE TABLE 'Card_Analytics' (
+'card_analytics_id' INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+'deck_id' INTEGER NOT NULL ,
+'card_id' INTEGER NOT NULL ,
+'response_date' NUMERIC DEFAULT NULL,
+'response' TEXT DEFAULT NULL,
+'is_correct' TEXT DEFAULT NULL
+);
+
+CREATE TABLE 'Deck_Analytics' (
+'deck_analytics_id' INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+'deck_id' INTEGER NOT NULL ,
+'completed' TEXT NOT NULL ,
+'questions_correct' INTEGER,
+'questions_incorrect' INTEGER DEFAULT NULL,
+'date_started' NUMERIC DEFAULT NULL,
+'date_finished' NUMERIC DEFAULT NULL,
+'date_created_on' NUMERIC NOT NULL ,
+'date_last_modified' NUMERIC DEFAULT NULL
+);
+
+CREATE TABLE 'Card_Choices_Analytics' (
+'id' TEXT DEFAULT NULL PRIMARY KEY AUTOINCREMENT
+);
