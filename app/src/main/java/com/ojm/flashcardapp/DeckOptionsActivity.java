@@ -90,6 +90,7 @@ public class DeckOptionsActivity extends BaseActivity {
 
     @OnClick(R.id.deleteDeckButton)
     public void setDeleteDeckButton(View view) {
+
         new AlertDialog.Builder(DeckOptionsActivity.this)
                 .setTitle("Delete Deck")
                 .setMessage("Are you sure you want to delete this deck?")
@@ -97,12 +98,15 @@ public class DeckOptionsActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
 
-                        dataStorage.deleteDeck(0);
+                        dataStorage.deleteDeck(deckId);
+                        finish();
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {}})
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+
     }
 }

@@ -190,6 +190,14 @@ public class DeckListActivity extends BaseActivity {
                     chooseAccount();
                 }
                 break;
+
+            case RESULT_OK:
+                Intent refresh = new Intent(this, CardListActivity.class);
+
+                startActivity(refresh);
+                this.finish();
+
+                break;
         }
 
     }
