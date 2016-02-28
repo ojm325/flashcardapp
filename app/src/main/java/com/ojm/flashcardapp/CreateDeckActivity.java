@@ -55,7 +55,7 @@ public class CreateDeckActivity extends BaseActivity {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }else {
-            Deck deck = new Deck(deckName, "flip-to-view", null);
+            Deck deck = new Deck(-1, deckName, null);
             localStorage.addDeck(deck);
             ArrayList tempDeck = localStorage.getAllDecks();
             int deckId = tempDeck.size() - 1;

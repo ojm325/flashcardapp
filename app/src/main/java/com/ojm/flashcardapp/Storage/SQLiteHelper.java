@@ -48,7 +48,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL("CREATE TABLE " + DECK_TABLE + "("
-                    + DECK_deck_id + " INTEGER PRIMARY KEY,"
+                    + DECK_deck_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + DECK_deck_name + " TEXT)");
 
             db.execSQL("CREATE TABLE " + CARD_TABLE + "("

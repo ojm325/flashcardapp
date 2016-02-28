@@ -104,7 +104,7 @@ public class SQLiteLocalStorage implements DataStorage {
                     ArrayList<FlashCard> cards = this.getAllCardsForDeck(deckId);
 
 
-                    Deck deck = new Deck(deckName, null, cards);
+                    Deck deck = new Deck(deckId, deckName, cards);
                     decks.add(deck);
 
                     cursor.moveToNext();
@@ -155,7 +155,7 @@ public class SQLiteLocalStorage implements DataStorage {
         try {
             this.open();
 
-            Deck deck = new Deck(null, null, null);
+            Deck deck = new Deck(deckId, null, null);
 
             Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 

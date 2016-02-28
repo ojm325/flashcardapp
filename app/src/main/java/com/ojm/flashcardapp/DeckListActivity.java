@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,7 +80,7 @@ public class DeckListActivity extends BaseActivity {
         dataStorage.getAllDecks();
 
         decks = dataStorage.getAllDecks();
-        adapter = new ArrayAdapter<String>(this, R.layout.deck_list_item);
+        adapter = new ArrayAdapter<>(this, R.layout.deck_list_item);
 
         for(int i = 0; i < decks.size(); i++){
             Deck deck = decks.get(i);
@@ -95,8 +96,7 @@ public class DeckListActivity extends BaseActivity {
     @OnItemClick(R.id.deckList)
     public void setDeckListRowClick(int position){
         Intent intent = new Intent(DeckListActivity.this, DeckOptionsActivity.class);
-        position++;
-        intent.putExtra("DECK_ID", position);
+        intent.putExtra("DECK_ID", decks.get(position).getDeckId());
         startActivity(intent);
     }
 
@@ -192,7 +192,7 @@ public class DeckListActivity extends BaseActivity {
                 break;
 
             case RESULT_OK:
-                Intent refresh = new Intent(this, CardListActivity.class);
+                Intent refresh = new Intent(this, DeckListActivity.class);
 
                 startActivity(refresh);
                 this.finish();

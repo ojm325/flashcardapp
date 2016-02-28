@@ -52,7 +52,6 @@ public class DeckOptionsActivity extends BaseActivity {
         setTitle(deck.getDeckName());
         Log.d("Cards in deck", "" + deck.getCards().size());
         cardsInDeckTextView.setText("Cards In Deck: "+deck.getCards().size());
-        //cardsInDeckTextView.setText(deck.getCards().size());
 
         if(deck.getCards().size() <= 0){
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
@@ -90,23 +89,21 @@ public class DeckOptionsActivity extends BaseActivity {
 
     @OnClick(R.id.deleteDeckButton)
     public void setDeleteDeckButton(View view) {
-
         new AlertDialog.Builder(DeckOptionsActivity.this)
                 .setTitle("Delete Deck")
                 .setMessage("Are you sure you want to delete this deck?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-
                         dataStorage.deleteDeck(deckId);
-                        finish();
 
+                        Intent intent = new Intent(DeckOptionsActivity.this, DeckListActivity.class);
+                        setResult(RESULT_OK, intent);
+                        DeckOptionsActivity.this.finish();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {}})
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-
     }
 }

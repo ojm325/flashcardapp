@@ -50,7 +50,7 @@ public class CardListActivity extends BaseActivity {
 
         ArrayList<FlashCard> cards = deck.getCards();
 
-        adapter = new ArrayAdapter<String>(this, R.layout.deck_list_item);
+        adapter = new ArrayAdapter<>(this, R.layout.deck_list_item);
 
         for(int i = 0; i < cards.size(); i++){
             FlashCard card = cards.get(i);
@@ -71,7 +71,6 @@ public class CardListActivity extends BaseActivity {
 
             deckId = getIntent().getIntExtra("DECK_ID", 0);
             refresh.putExtra("DECK_ID", deckId);
-
             startActivity(refresh);
             this.finish();
         }
