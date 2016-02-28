@@ -57,8 +57,8 @@ public class CreateDeckActivity extends BaseActivity {
         }else {
             Deck deck = new Deck(-1, deckName, null);
             localStorage.addDeck(deck);
-            ArrayList tempDeck = localStorage.getAllDecks();
-            int deckId = tempDeck.size() - 1;
+            ArrayList<Deck> tempDeck = localStorage.getAllDecks();
+            int deckId = tempDeck.get(tempDeck.size()-1).getDeckId();
 
             Intent intent = new Intent(CreateDeckActivity.this, CardListActivity.class);
             intent.putExtra("DECK_ID", deckId);
