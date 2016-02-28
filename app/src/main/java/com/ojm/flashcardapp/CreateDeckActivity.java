@@ -49,7 +49,6 @@ public class CreateDeckActivity extends BaseActivity {
                     .setMessage("Deck name is too short. Your deck name must contain more than three letters.")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)

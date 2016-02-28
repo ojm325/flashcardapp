@@ -39,6 +39,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String DECK_ANALYTICS_id = "deck_analytics_id";
     public static final String DECK_ANALYTICS_timestamp_started = "timestamp_started";
     public static final String DECK_ANALYTICS_timestamp_finished = "timestamp_finished";
+    public static final String DECK_ANALYTICS_is_completed = "is_completed";
 
     public SQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -49,7 +50,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         try {
             db.execSQL("CREATE TABLE " + DECK_TABLE + "("
                     + DECK_deck_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + DECK_deck_name + " TEXT)");
+                    + DECK_deck_name + " TEXT,"
+                    + DECK_date_created_on + " DATESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                    + DECK_date_last_modified + " DATESTAMP)");
 
             db.execSQL("CREATE TABLE " + CARD_TABLE + "("
                     + CARD_card_id + " INTEGER PRIMARY KEY,"
@@ -74,6 +77,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + DECK_deck_id + " INTEGER,"
                     + DECK_ANALYTICS_timestamp_started + " DATESTAMP DEFAULT CURRENT_TIMESTAMP,"
                     + DECK_ANALYTICS_timestamp_finished + " DATESTAMP,"
+                    + DECK_ANALYTICS_is_completed + " INTEGER,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");
 
             db.execSQL("CREATE TABLE " + CARD_CHOICES_TABLE + "("
