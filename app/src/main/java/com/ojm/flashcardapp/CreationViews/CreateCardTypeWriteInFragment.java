@@ -1,5 +1,6 @@
 package com.ojm.flashcardapp.CreationViews;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Omar on 3/16/2016.
  */
-public class CreateCardTypeWriteInFragment extends CreateCardTypeFragment{
+public class CreateCardTypeWriteInFragment extends Fragment {
     @Bind(R.id.answerTextView) TextView answerTextView;
 
     @Override

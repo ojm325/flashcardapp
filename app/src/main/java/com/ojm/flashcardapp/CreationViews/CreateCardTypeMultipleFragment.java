@@ -1,6 +1,8 @@
 package com.ojm.flashcardapp.CreationViews;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ import butterknife.OnClick;
 /**
  * Created by Omar on 3/16/2016.
  */
-public class CreateCardTypeMultipleFragment extends CreateCardTypeFragment {
+public class CreateCardTypeMultipleFragment extends Fragment {
     @Bind(R.id.addChoiceButton) Button addChoiceButton;
     @Bind(R.id.answerChoicesSection) TableLayout answerChoicesSection;
 
@@ -40,15 +42,26 @@ public class CreateCardTypeMultipleFragment extends CreateCardTypeFragment {
 
     @OnClick(R.id.addChoiceButton)
     public void addChoiceButton(View view) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         final EditText choiceInputText = new EditText(getActivity());
         choiceInputText.setHint("Enter Choice Text Here");
-        alertDialog.setTitle("Add Choice");
-        alertDialog.setMessage("Type in a choice for this question.");
-        alertDialog.setView(choiceInputText);
 
-        CheckBox checkBox = new CheckBox(getActivity());
-        checkBox.setText(choiceInputText.getText());
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Add Choice")
+                        .setMessage("Type in a choice for this question.")
+                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                CheckBox checkBox = new CheckBox(getActivity());
+                                checkBox.setText(choiceInputText.getText());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setView(choiceInputText)
+                        .show();
+
 
     }
 }
