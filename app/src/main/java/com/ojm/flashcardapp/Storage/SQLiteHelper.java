@@ -25,7 +25,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String CARD_card_id = "card_id";
     public static final String CARD_question = "question";
-    public static final String CARD_answer = "answer";
+    public static final String CARD_choice_id_answer = "choice_id_answer";
     public static final String CARD_notes = "notes";
 
     public static final String CARD_CHOICES_id = "choice_id";
@@ -58,7 +58,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + CARD_card_id + " INTEGER PRIMARY KEY,"
                     + DECK_deck_id + " INTEGER,"
                     + CARD_question + " TEXT,"
-                    + CARD_answer + " TEXT,"
+                    + CARD_choice_id_answer + " INTEGER,"
                     + CARD_notes + " TEXT,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");
 

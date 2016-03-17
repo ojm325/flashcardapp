@@ -16,15 +16,15 @@ import java.util.ArrayList;
 /**
  * Created by Omar on 1/9/2016.
  */
-public class SQLiteLocalStorage implements DataStorage {
-    public static final String LOG_TAG = "SQLiteLocalStorage";
+public class SQLiteDeckCardStorage implements DataStorage {
+    public static final String LOG_TAG = "SQLiteDeckCardStorage";
 
     SQLiteHelper dbHelper;
     SQLiteDatabase db;
     private String[] allDeckTableColumns = {dbHelper.DECK_deck_id, dbHelper.DECK_deck_name};
-    private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_question, dbHelper.CARD_answer};
+    private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_question, dbHelper.CARD_choice_id_answer};
 
-    public SQLiteLocalStorage(Context context){
+    public SQLiteDeckCardStorage(Context context){
         dbHelper = new SQLiteHelper(context);
     }
 
@@ -60,7 +60,7 @@ public class SQLiteLocalStorage implements DataStorage {
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_id, deckId);
             values.put(dbHelper.CARD_question, card.getQuestion());
-            values.put(dbHelper.CARD_answer, card.getAnswer());
+            //values.put(dbHelper.CARD_choice_id_answer, card.getAnswer());
 
             db.insert(SQLiteHelper.CARD_TABLE, null, values);
 
@@ -131,7 +131,7 @@ public class SQLiteLocalStorage implements DataStorage {
             if(cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()){
                     String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
-                    String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_answer));
+                    String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_choice_id_answer));
 
                     FlashCard card = new FlashCardQuestionAndAnswer(question, null, answer, null);
                     cards.add(card);

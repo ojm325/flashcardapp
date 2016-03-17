@@ -25,13 +25,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateDeckActivity"
+            android:name=".CreationViews.CreateDeckActivity"
             android:label="@string/action_createNewDeck"></activity>
         <activity
             android:name=".FlashCardActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".CreateCardActivity"
+            android:name=".CreationViews.CreateCardActivity"
             android:label="@string/action_createNewCard"></activity>
         <activity
             android:name=".CardListActivity"

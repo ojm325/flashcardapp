@@ -1,6 +1,5 @@
 package com.ojm.flashcardapp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,9 +12,7 @@ import android.widget.TextView;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
-
-import java.util.ArrayList;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,7 +22,8 @@ import butterknife.OnClick;
  * Created by Omar on 1/23/2016.
  */
 public class DeckOptionsActivity extends BaseActivity {
-    @Bind(R.id.useDeckButton) Button useDeckButton;
+    @Bind(R.id.useDeckPracticeButton) Button useDeckPracticeButton;
+    @Bind(R.id.useDeckChallangeButton) Button useDeckChallengeButton;
     @Bind(R.id.deckStatsButton) Button deckStatsButton;
     @Bind(R.id.modifyDeckButton) Button modifyDeckButton;
     @Bind(R.id.deleteDeckButton) Button deleteDeckButton;
@@ -43,7 +41,7 @@ public class DeckOptionsActivity extends BaseActivity {
         setContentView(R.layout.activity_deck_options);
         ButterKnife.bind(this);
 
-        dataStorage = new SQLiteLocalStorage(this);
+        dataStorage = new SQLiteDeckCardStorage(this);
         deckId = getIntent().getIntExtra("DECK_ID", 0);
         Log.d("DECK_ID", "" + deckId);
 
@@ -55,7 +53,7 @@ public class DeckOptionsActivity extends BaseActivity {
 
         if(deck.getCards().size() <= 0){
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
-            useDeckButton.setEnabled(false);
+            useDeckPracticeButton.setEnabled(false);
             deckStatsButton.setEnabled(false);
         }else{
             deckAlertTextView.setVisibility(View.INVISIBLE);
@@ -68,8 +66,8 @@ public class DeckOptionsActivity extends BaseActivity {
         return true;
     }
 
-    @OnClick(R.id.useDeckButton)
-    public void setUseDeckButton(View view) {
+    @OnClick(R.id.useDeckPracticeButton)
+    public void setUseDeckPracticeButton(View view) {
         Intent intent = new Intent(DeckOptionsActivity.this, QuizTakingActivity.class);
         intent.putExtra("DECK_ID", deckId);
         startActivity(intent);

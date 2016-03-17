@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,19 +18,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Card Answer"
-        android:id="@+id/CardAnswer" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/answerTextView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Advanced Options"
-        android:id="@+id/AdvancedOptions" />
+        android:text="Card Type"
+        android:id="@+id/CardType" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -40,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Question and Answer"
             android:id="@+id/questionAndAnswerRadioButton"
-            android:checked="false" />
+            android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -63,6 +53,14 @@
             android:id="@+id/trueOrFalseRadioButton"
             android:checked="false" />
     </RadioGroup>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.ojm.flashcardapp.CreationViews.CreateCardTypeWriteInFragment"
+        android:id="@+id/answerFragment"
+        android:layout_gravity="right"
+        tools:layout="@layout/fragment_create_card_type_writein" />
 
     <TextView
         android:layout_width="wrap_content"

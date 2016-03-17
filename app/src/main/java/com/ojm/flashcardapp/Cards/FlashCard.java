@@ -8,11 +8,11 @@ import java.util.Map;
  * Created by omar on 11/23/15.
  */
 public interface FlashCard {
-    public String getQuestion();
-    public void setQuestion(String question);
-    public String getAnswer();
-    public void setAnswer(String answer);
-    public String getCardNote();
-    public void setCardNote(String cardNote);
+    String getQuestion();
+    void setQuestion(String question);
+    String getAnswer();
+    void setAnswer(String answer);
+    String getCardNote();
+    void setCardNote(String cardNote);
 
 }

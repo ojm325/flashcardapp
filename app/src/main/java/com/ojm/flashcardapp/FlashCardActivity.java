@@ -1,14 +1,12 @@
 package com.ojm.flashcardapp;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.widget.TextView;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,7 +24,7 @@ public class FlashCardActivity extends BaseActivity {
         setContentView(R.layout.individual_card);
         ButterKnife.bind(this);
 
-        DataStorage dataStorage = new SQLiteLocalStorage(this);
+        DataStorage dataStorage = new SQLiteDeckCardStorage(this);
         Deck deck = dataStorage.getDeck(0);
 
         setTitle(deck.getDeckName());

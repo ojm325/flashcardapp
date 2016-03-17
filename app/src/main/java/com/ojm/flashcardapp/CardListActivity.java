@@ -1,20 +1,18 @@
 package com.ojm.flashcardapp;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.CreationViews.CreateCardActivity;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import java.util.ArrayList;
 
@@ -40,7 +38,7 @@ public class CardListActivity extends BaseActivity {
         setContentView(R.layout.activity_card_list);
         ButterKnife.bind(this);
 
-        dataStorage = new SQLiteLocalStorage(this);
+        dataStorage = new SQLiteDeckCardStorage(this);
 
         deckId = getIntent().getIntExtra("DECK_ID", 0);
 

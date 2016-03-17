@@ -1,7 +1,5 @@
 package com.ojm.flashcardapp;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,14 +7,13 @@ import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,7 +41,7 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
         deckId = getIntent().getIntExtra("DECK_ID", 0);
         cardId = getIntent().getIntExtra("CARD_ID", 0);
 
-        DataStorage dataStorage = new SQLiteLocalStorage(this);
+        DataStorage dataStorage = new SQLiteDeckCardStorage(this);
 
         deck = dataStorage.getDeck(deckId);
         Log.d("CARDS", String.valueOf(cardId));

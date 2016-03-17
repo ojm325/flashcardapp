@@ -1,20 +1,19 @@
-package com.ojm.flashcardapp;
+package com.ojm.flashcardapp.CreationViews;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.ojm.flashcardapp.BaseActivity;
+import com.ojm.flashcardapp.CardListActivity;
 import com.ojm.flashcardapp.Cards.Deck;
-import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.R;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class CreateDeckActivity extends BaseActivity {
 
     @OnClick(R.id.next)
     public void nextButton(View view) {
-        DataStorage localStorage = new SQLiteLocalStorage(getApplicationContext());
+        DataStorage localStorage = new SQLiteDeckCardStorage(getApplicationContext());
 
         String deckName = deckNameTextView.getText().toString();
         String[] deckNameLetters = deckName.split("");

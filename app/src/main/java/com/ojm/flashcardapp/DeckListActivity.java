@@ -3,9 +3,7 @@ package com.ojm.flashcardapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,8 +31,9 @@ import com.google.api.services.drive.DriveScopes;
 
 import com.google.api.services.drive.model.*;
 import com.ojm.flashcardapp.Cards.Deck;
+import com.ojm.flashcardapp.CreationViews.CreateDeckActivity;
 import com.ojm.flashcardapp.Storage.DataStorage;
-import com.ojm.flashcardapp.Storage.SQLiteLocalStorage;
+import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import android.accounts.AccountManager;
 import android.app.Dialog;
@@ -44,7 +43,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import com.google.android.gms.drive.Drive;
 
 import java.io.IOException;
 
@@ -76,7 +74,7 @@ public class DeckListActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        dataStorage = new SQLiteLocalStorage(DeckListActivity.this);
+        dataStorage = new SQLiteDeckCardStorage(DeckListActivity.this);
         dataStorage.getAllDecks();
 
         decks = dataStorage.getAllDecks();
