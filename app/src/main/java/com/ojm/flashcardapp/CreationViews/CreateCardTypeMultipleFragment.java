@@ -49,10 +49,11 @@ public class CreateCardTypeMultipleFragment extends Fragment {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Add Choice")
                         .setMessage("Type in a choice for this question.")
-                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 CheckBox checkBox = new CheckBox(getActivity());
                                 checkBox.setText(choiceInputText.getText());
+                                answerChoicesSection.addView(checkBox);
                             }
                         })
                         .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

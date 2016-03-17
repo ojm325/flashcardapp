@@ -1,83 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/ScrollView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Question:"
-        android:id="@+id/CardQuestion" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/questionTextView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Type"
-        android:id="@+id/CardType" />
-
-    <RadioGroup
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cardTypeRadioGroup">
+        android:layout_height="match_parent">
 
-        <RadioButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Question and Answer"
-            android:id="@+id/questionAndAnswerRadioButton"
-            android:checked="true" />
+            android:text="Card Question:"
+            android:id="@+id/CardQuestion" />
 
-        <RadioButton
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/questionTextView" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Multiple Choice"
-            android:id="@+id/multipleChoiceRadioButton"
-            android:checked="false" />
+            android:text="Card Type"
+            android:id="@+id/CardType" />
 
-        <RadioButton
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardTypeRadioGroup">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question and Answer"
+                android:id="@+id/questionAndAnswerRadioButton"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multiple Choice"
+                android:id="@+id/multipleChoiceRadioButton"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multiple Answers"
+                android:id="@+id/multipleAnswersRadioButton"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="True or False"
+                android:id="@+id/trueOrFalseRadioButton"
+                android:checked="false" />
+        </RadioGroup>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.ojm.flashcardapp.CreationViews.CreateCardTypeWriteInFragment"
+            android:id="@+id/answerFragment"
+            android:layout_gravity="right"
+            tools:layout="@layout/fragment_create_card_type_writein" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Multiple Answers"
-            android:id="@+id/multipleAnswersRadioButton"
-            android:checked="false" />
+            android:text="Card Notes"
+            android:id="@+id/CardNotes" />
 
-        <RadioButton
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardNotesTextField" />
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="True or False"
-            android:id="@+id/trueOrFalseRadioButton"
-            android:checked="false" />
-    </RadioGroup>
+            android:text="Create Card"
+            android:id="@+id/createCardButton" />
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.ojm.flashcardapp.CreationViews.CreateCardTypeWriteInFragment"
-        android:id="@+id/answerFragment"
-        android:layout_gravity="right"
-        tools:layout="@layout/fragment_create_card_type_writein" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Notes"
-        android:id="@+id/CardNotes" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cardNotesTextField" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Card"
-        android:id="@+id/createCardButton" />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
