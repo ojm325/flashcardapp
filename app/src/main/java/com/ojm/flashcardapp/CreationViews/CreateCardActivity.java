@@ -52,23 +52,47 @@ public class CreateCardActivity extends BaseActivity {
                 View radioButton = group.findViewById(radioButtonId);
                 int radioIndexOfChild = group.indexOfChild(radioButton);
 
+                CreateCardTypeWriteInFragment writeinFragment;
+                CreateCardTypeMultipleFragment multipleFragment;
+
+                Bundle cardType = new Bundle();
+
                 switch (radioIndexOfChild) {
                     case 0:
-                        CreateCardTypeWriteInFragment writeinFragment = new CreateCardTypeWriteInFragment();
+                        writeinFragment = new CreateCardTypeWriteInFragment();
                         fragmentTransaction.replace(R.id.answerLayout, writeinFragment);
                         fragmentTransaction.commit();
                         Log.d("TESTING", "Question and Answer");
                         break;
                     case 1:
-                        CreateCardTypeMultipleFragment multipleFragment = new CreateCardTypeMultipleFragment();
+                        multipleFragment = new CreateCardTypeMultipleFragment();
+
+                        cardType.putString("cardType", "Multiple Choice");
+                        multipleFragment.setArguments(cardType);
+
                         fragmentTransaction.replace(R.id.answerLayout, multipleFragment);
                         fragmentTransaction.commit();
                         Log.d("TESTING", "Multiple Choice");
                         break;
                     case 2:
+                        multipleFragment = new CreateCardTypeMultipleFragment();
+
+                        cardType.putString("cardType", "Multiple Answers");
+                        multipleFragment.setArguments(cardType);
+
+                        fragmentTransaction.replace(R.id.answerLayout, multipleFragment);
+                        fragmentTransaction.commit();
                         Log.d("TESTING", "Multiple Answers");
                         break;
                     case 3:
+                        multipleFragment = new CreateCardTypeMultipleFragment();
+
+                        cardType.putString("cardType", "True or False");
+                        multipleFragment.setArguments(cardType);
+
+                        fragmentTransaction.replace(R.id.answerLayout, multipleFragment);
+                        fragmentTransaction.commit();
+
                         Log.d("TESTING", "True or False");
                         break;
                     default:
