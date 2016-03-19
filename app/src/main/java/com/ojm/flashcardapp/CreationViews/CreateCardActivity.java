@@ -55,13 +55,13 @@ public class CreateCardActivity extends BaseActivity {
                 switch (radioIndexOfChild) {
                     case 0:
                         CreateCardTypeWriteInFragment writeinFragment = new CreateCardTypeWriteInFragment();
-                        fragmentTransaction.replace(R.id.answerFragment, writeinFragment);
+                        fragmentTransaction.replace(R.id.answerLayout, writeinFragment);
                         fragmentTransaction.commit();
                         Log.d("TESTING", "Question and Answer");
                         break;
                     case 1:
                         CreateCardTypeMultipleFragment multipleFragment = new CreateCardTypeMultipleFragment();
-                        fragmentTransaction.replace(R.id.answerFragment, multipleFragment);
+                        fragmentTransaction.replace(R.id.answerLayout, multipleFragment);
                         fragmentTransaction.commit();
                         Log.d("TESTING", "Multiple Choice");
                         break;

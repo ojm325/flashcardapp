@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="Question and Answer"
                 android:id="@+id/questionAndAnswerRadioButton"
-                android:checked="true" />
+                android:checked="false" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -61,13 +61,10 @@
                 android:checked="false" />
         </RadioGroup>
 
-        <fragment
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.ojm.flashcardapp.CreationViews.CreateCardTypeWriteInFragment"
-            android:id="@+id/answerFragment"
-            android:layout_gravity="right"
-            tools:layout="@layout/fragment_create_card_type_writein" />
+            android:layout_height="match_parent"
+            android:id="@+id/answerLayout"></FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
