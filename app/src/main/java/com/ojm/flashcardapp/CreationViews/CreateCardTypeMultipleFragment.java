@@ -17,6 +17,9 @@ import android.widget.TableRow;
 
 import com.ojm.flashcardapp.R;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -98,5 +101,11 @@ public class CreateCardTypeMultipleFragment extends Fragment {
                         .show();
 
 
+    }
+
+    public TreeMap<String, Boolean> getChoices(){
+        TreeMap<String, Boolean> choices = new TreeMap<>();
+
+        return choices;
     }
 }

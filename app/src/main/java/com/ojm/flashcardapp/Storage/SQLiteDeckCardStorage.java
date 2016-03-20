@@ -8,10 +8,12 @@ import android.util.Log;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
 import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Omar on 1/9/2016.
@@ -22,7 +24,8 @@ public class SQLiteDeckCardStorage implements DataStorage {
     SQLiteHelper dbHelper;
     SQLiteDatabase db;
     private String[] allDeckTableColumns = {dbHelper.DECK_deck_id, dbHelper.DECK_deck_name};
-    private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_question, dbHelper.CARD_choice_id_answer};
+    private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_type, dbHelper.CARD_question, dbHelper.CARD_notes};
+    private String[] allCardChoicesTableColumns = {dbHelper.CARD_CHOICES_id, dbHelper.DECK_deck_id, dbHelper.CARD_card_id, dbHelper.CARD_CHOICES_answer_choice, dbHelper.CARD_CHOICES_is_answer};
 
     public SQLiteDeckCardStorage(Context context){
         dbHelper = new SQLiteHelper(context);
@@ -60,7 +63,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_id, deckId);
             values.put(dbHelper.CARD_question, card.getQuestion());
-            //values.put(dbHelper.CARD_choice_id_answer, card.getAnswer());
+            values.put(dbHelper.CARD_notes, card.getCardNote());
 
             db.insert(SQLiteHelper.CARD_TABLE, null, values);
 
@@ -130,10 +133,12 @@ public class SQLiteDeckCardStorage implements DataStorage {
 
             if(cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()){
+                    String cardType = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_type));
                     String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
                     String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_choice_id_answer));
+                    String cardNote = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_notes));
 
-                    FlashCard card = new FlashCardQuestionAndAnswer(question, null, answer, null);
+                    FlashCard card = new FlashCardQuestionAndAnswer(cardType, question, answer, cardNote);
                     cards.add(card);
 
                     cursor.moveToNext();
@@ -194,7 +199,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
     public void deleteDeck(int deckId) {
         try {
             this.open();
-            db.delete(dbHelper.DECK_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
+            db.delete(dbHelper.DECK_TABLE, dbHelper.DECK_deck_id + " = ?", new String[]{Integer.toString(deckId)});
 
             // We also have to delete all of the cards from that deck.
             db.delete(dbHelper.CARD_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
@@ -217,12 +222,39 @@ public class SQLiteDeckCardStorage implements DataStorage {
     }
 
     @Override
-    public void setAnswerChoicesForCard(int deckId, int cardId) {
-        
+    public void setAnswerChoiceForCard(int deckId, int cardId, String answerChoice, boolean isAnswer) {
+        try {
+            this.open();
+
+            int isAnswerNum = 0;
+
+            if(isAnswer){ isAnswerNum = 1; }
+
+            ContentValues values = new ContentValues();
+            values.put(dbHelper.DECK_deck_id, deckId);
+            values.put(dbHelper.CARD_card_id, cardId);
+            values.put(dbHelper.CARD_CHOICES_answer_choice, answerChoice);
+            values.put(dbHelper.CARD_CHOICES_is_answer, isAnswer);
+
+
+            //values.put(dbHelper.CARD_choice_id_answer, card.getAnswer());
+
+            db.insert(SQLiteHelper.CARD_CHOICES_TABLE, null, values);
+
+            this.close();
+
+        }catch(Exception e){
+            Log.e(LOG_TAG, "setAnswerChoicesForCard ERROR: " + e.getMessage());
+        }
     }
 
     @Override
-    public ArrayList<String> getAnswerChoicesForCard(int deckId, int cardId) {
+    public void modifyAnswerChoiceForCard(int cardChoiceId, int deckId, int cardId) {
+
+    }
+
+    @Override
+    public LinkedHashMap getAnswerChoicesForCard(int deckId, int cardId) {
         return null;
     }
 }

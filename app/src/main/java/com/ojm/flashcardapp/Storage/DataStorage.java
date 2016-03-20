@@ -2,8 +2,10 @@ package com.ojm.flashcardapp.Storage;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
+import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Omar on 1/9/2016.
@@ -19,7 +21,8 @@ public interface DataStorage {
     FlashCard getCard(int deckId);
     void deleteDeck(int deckId);
     void deleteCard(int deckId, int cardId);
-    void setAnswerChoicesForCard(int deckId, int cardId);
-    ArrayList<String> getAnswerChoicesForCard(int deckId, int cardId);
+    void setAnswerChoiceForCard(int deckId, int cardId, String answerChoice, boolean isAnswer);
+    void modifyAnswerChoiceForCard(int cardChoiceId, int deckId, int cardId);
+    LinkedHashMap getAnswerChoicesForCard(int deckId, int cardId);
 
 }

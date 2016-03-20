@@ -1,24 +1,33 @@
 package com.ojm.flashcardapp.Cards;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Omar on 1/21/2016.
  */
 public class FlashCardMultipleChoice implements FlashCard {
+    private String cardType;
     private String question;
-    private List<String> choices;
-    private String answer;
+    private TreeMap<String, Boolean> choices;
     private String cardNote;
 
-    public FlashCardMultipleChoice(String question,
-                                   List<String> choices,
-                                   String answer,
+    public FlashCardMultipleChoice(String cardType,
+                                   String question,
+                                   TreeMap<String, Boolean> choices,
                                    String cardNote) {
         this.question = question;
         this.choices = choices;
-        this.answer = answer;
         this.cardNote = cardNote;
+    }
+
+    @Override
+    public String getCardType() {
+        return cardType;
+    }
+
+    @Override
+    public void setCardType(String type) {
+        cardType = type;
     }
 
     public String getQuestion() { return question; }
@@ -26,15 +35,21 @@ public class FlashCardMultipleChoice implements FlashCard {
         this.question = question;
     }
 
-    public List<String> getChoices() { return choices; }
-    public void setChoices(List<String> choices) {
+    public TreeMap<String, Boolean> getChoices() { return choices; }
+    public void setChoices(TreeMap<String, Boolean> choices) {
         this.choices = choices;
     }
 
-    // Figure out best approach for multiple answers
-    public String getAnswer() { return answer; }
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public List getAnswers() {
+        List<String> answers = new ArrayList<>();
+
+        for(String choice : choices.keySet()){
+            if (choices.get(choice).equals(true)){
+                answers.add(choice);
+            }
+        }
+
+        return answers;
     }
 
     public String getCardNote() { return cardNote; }

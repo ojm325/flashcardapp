@@ -108,7 +108,18 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
     protected void populateCard(FlashCard card){
         cardQuestion.setText(card.getQuestion());
-        cardAnswer.setText(card.getAnswer());
+
+        if(card.getCardType().equals("Multiple Answers")){
+            String answerConcat = "";
+
+            for(int i = 0; i < card.getAnswers().size(); i++){
+                answerConcat += card.getAnswers().get(i).toString()+ ", ";
+            }
+
+            cardAnswer.setText(answerConcat);
+        }else{
+            cardAnswer.setText(card.getAnswers().get(0).toString());
+        }
 
     }
 }

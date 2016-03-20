@@ -34,4 +34,8 @@ public class CreateCardTypeWriteInFragment extends Fragment {
 
         return view;
     }
+
+    public String getAnswer(){
+        return answerTextView.getText().toString();
+    }
 }

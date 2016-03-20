@@ -33,10 +33,16 @@ public class CreateCardActivity extends BaseActivity {
     @Bind(R.id.createCardButton) Button createCardButton;
     @Bind(R.id.questionTextView) TextView questionTextView;
     @Bind(R.id.cardTypeRadioGroup) RadioGroup cardTypeRadioGroup;
+    //@Bind(R.id.answerTextView) TextView answerWriteInTextView;
+    @Bind(R.id.cardNotesTextField) TextView cardNoteTextView;
 
     private int deckId;
     private String question;
+    private Bundle cardType;
     int radioIndexOfChild = -1;
+
+    private CreateCardTypeWriteInFragment writeinFragment;
+    private CreateCardTypeMultipleFragment multipleFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +62,16 @@ public class CreateCardActivity extends BaseActivity {
                 View radioButton = group.findViewById(radioButtonId);
                 radioIndexOfChild = group.indexOfChild(radioButton);
 
-                CreateCardTypeWriteInFragment writeinFragment;
-                CreateCardTypeMultipleFragment multipleFragment;
-
-                Bundle cardType = new Bundle();
+                cardType = new Bundle();
 
                 switch (radioIndexOfChild) {
                     case 0:
+                        cardType.putString("cardType", "Question and Answer");
+
                         writeinFragment = new CreateCardTypeWriteInFragment();
                         fragmentTransaction.replace(R.id.answerLayout, writeinFragment);
                         fragmentTransaction.commit();
+
                         Log.d("TESTING", "Question and Answer");
                         break;
                     case 1:
@@ -110,11 +116,14 @@ public class CreateCardActivity extends BaseActivity {
     @OnClick(R.id.createCardButton)
     public void createCardButton(View view) {
         question = questionTextView.getText().toString();
-        //String answer = answerTextView.getText().toString();
+        String cardNote = cardNoteTextView.getText().toString();
+        //String answerWriteIn = answerWriteInTextView.getText().toString();
+        //String answer = writeinFragment.getAnswer();
 
         if(verifyCardCreation()){
+
             /*
-            FlashCard card = new FlashCardQuestionAndAnswer(question, null, "DEPRECATED", null);
+            FlashCard card = new FlashCardQuestionAndAnswer(cardType.getString("cardType"), question, answer, cardNote);
 
             DataStorage dataStorage = new SQLiteDeckCardStorage(this);
             dataStorage.addCard(card, deckId);
@@ -124,6 +133,7 @@ public class CreateCardActivity extends BaseActivity {
             setResult(RESULT_OK, intent);
             this.finish();
             */
+
         }
 
     }
@@ -142,7 +152,7 @@ public class CreateCardActivity extends BaseActivity {
 
             return false;
         }else{
-            displayCardCreationError("Card created!");
+            displayCardCreationError("Card created!" + cardType.getString("cardType")+"||"+writeinFragment.getAnswer());
 
             return true;
         }

@@ -24,6 +24,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String DECK_date_last_modified = "date_last_modified";
 
     public static final String CARD_card_id = "card_id";
+    public static final String CARD_type = "type";
     public static final String CARD_question = "question";
     public static final String CARD_choice_id_answer = "choice_id_answer";
     public static final String CARD_notes = "notes";
@@ -58,6 +59,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE " + CARD_TABLE + "("
                     + CARD_card_id + " INTEGER PRIMARY KEY,"
                     + DECK_deck_id + " INTEGER,"
+                    + CARD_type + " TEXT,"
                     + CARD_question + " TEXT,"
                     + CARD_notes + " TEXT,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");

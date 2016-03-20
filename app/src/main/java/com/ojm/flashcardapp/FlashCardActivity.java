@@ -8,6 +8,8 @@ import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
+import java.util.LinkedHashMap;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -34,7 +36,18 @@ public class FlashCardActivity extends BaseActivity {
 
     protected void populateCard(FlashCard card){
         cardQuestion.setText(card.getQuestion());
-        cardAnswer.setText(card.getAnswer());
+
+        if(card.getCardType().equals("Multiple Answers")){
+            String answerConcat = "";
+
+            for(int i = 0; i < card.getAnswers().size(); i++){
+                answerConcat += card.getAnswers().get(i).toString()+ ", ";
+            }
+
+            cardAnswer.setText(answerConcat);
+        }else{
+            cardAnswer.setText(card.getAnswers().get(0).toString());
+        }
 
     }
 }

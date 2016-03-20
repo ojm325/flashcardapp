@@ -1,25 +1,35 @@
 package com.ojm.flashcardapp.Cards;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Omar on 1/21/2016.
  */
 public class FlashCardQuestionAndAnswer implements FlashCard{
+    private String cardType;
     private String question;
-    private String questionPicture;
-    private ArrayList multipleChoices;
     private String answer;
     private String cardNote;
 
-    public FlashCardQuestionAndAnswer(String question,
-                     String questionPicture,
-                     String answer,
-                     String cardNote) {
+    public FlashCardQuestionAndAnswer(String cardType,
+                                      String question,
+                                      String answer,
+                                      String cardNote) {
+        this.cardType = cardType;
         this.question = question;
-        this.questionPicture = questionPicture;
         this.answer = answer;
         this.cardNote = cardNote;
+    }
+
+    @Override
+    public String getCardType() {
+        return cardType;
+    }
+
+    @Override
+    public void setCardType(String type) {
+        cardType = type;
     }
 
     public String getQuestion() {
@@ -29,15 +39,17 @@ public class FlashCardQuestionAndAnswer implements FlashCard{
         this.question = question;
     }
 
-    public String getAnswer() {
-        return answer;
+    public List getAnswers() {
+        List<String> answers = new ArrayList<>();
+        answers.add(answer);
+        return answers;
     }
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswers(String answer) {
+        this.answer = answer.toString();
     }
 
     public String getCardNote() {
-        return getCardNote();
+        return cardNote;
     }
     public void setCardNote(String cardNote) {
         this.cardNote = cardNote;
