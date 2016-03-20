@@ -143,18 +143,39 @@ public class CreateCardActivity extends BaseActivity {
         // (True False/ Multiple Choice) Check if answer has been selected
         // (Question and Answer) Check if answer has been written
         // Check if Card has question
-        if(question.isEmpty()){
-            displayCardCreationError("Type in a question.");
+        try {
+            if (question.isEmpty()) {
+                displayCardCreationError("Type in a question.");
+
+                return false;
+            } else if (radioIndexOfChild == -1) {
+                displayCardCreationError("Select a card type.");
+
+                return false;
+            }else {
+                if(cardType.getString("cardType").equals("True or False")){
+                    multipleFragment.getChoices();
+                }
+                displayCardCreationError("Card created!" + cardType.getString("cardType"));
+
+                return true;
+            }
+
+            /*
+                        } else if (writeinFragment.getAnswer().isEmpty() || multipleFragment.getChoices().isEmpty()) {
+                displayCardCreationError("Put in an answer.");
+
+                return false;
+            } else if (!multipleFragment.getChoices().containsValue(true)) {
+                displayCardCreationError("Mark a correct answer.");
+
+                return false;
+            }
+             */
+        }catch (NullPointerException e){
+            displayCardCreationError("ERROR" +e.getMessage());
 
             return false;
-        }else if(radioIndexOfChild == -1){
-            displayCardCreationError("Select a card type.");
-
-            return false;
-        }else{
-            displayCardCreationError("Card created!" + cardType.getString("cardType")+"||"+writeinFragment.getAnswer());
-
-            return true;
         }
     }
 

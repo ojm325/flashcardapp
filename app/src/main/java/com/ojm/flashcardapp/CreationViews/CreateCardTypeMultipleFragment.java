@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class CreateCardTypeMultipleFragment extends Fragment {
 
     private String cardType = "";
     private TableLayout checkboxTable;
+    private RadioGroup radioGroup;
+    private TreeMap<String, Boolean> choices;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,21 +43,28 @@ public class CreateCardTypeMultipleFragment extends Fragment {
 
         cardType = getArguments().getString("cardType");
 
+        choices = new TreeMap<>();
+
         if(cardType.equals("True or False")){
-            RadioGroup trueFalseGroup = new RadioGroup(getActivity());
+            radioGroup = new RadioGroup(getActivity());
             addChoiceButton.setVisibility(View.GONE);
             RadioButton trueButton = new RadioButton(getActivity());
-            trueButton.setText("TRUE");
-            trueFalseGroup.addView(trueButton);
+            trueButton.setText("True");
+            choices.put("True", false);
+            radioGroup.addView(trueButton);
 
             RadioButton falseButton = new RadioButton(getActivity());
-            falseButton.setText("FALSE");
-            trueFalseGroup.addView(falseButton);
+            falseButton.setText("False");
+            choices.put("False", false);
+            radioGroup.addView(falseButton);
 
-            answerChoicesSection.addView(trueFalseGroup);
+            answerChoicesSection.addView(radioGroup);
         }else if(cardType.equals("Multiple Answers")){
             checkboxTable = new TableLayout(getActivity());
             answerChoicesSection.addView(checkboxTable);
+        }else if(cardType.equals("Multiple Choice")){
+            radioGroup = new RadioGroup(getActivity());
+            answerChoicesSection.addView(radioGroup);
         }
     }
 
@@ -81,12 +91,14 @@ public class CreateCardTypeMultipleFragment extends Fragment {
                                 if(cardType.equals("Multiple Choice")){
                                     RadioButton radioButton = new RadioButton(getActivity());
                                     radioButton.setText(choiceInputText.getText());
-                                    answerChoicesSection.addView(radioButton);
+                                    choices.put(choiceInputText.getText().toString(), false);
+                                    radioGroup.addView(radioButton);
                                 }else if(cardType.equals("Multiple Answers")){
                                     TableRow checkBoxRow = new TableRow(getActivity());
 
                                     CheckBox checkBox = new CheckBox(getActivity());
                                     checkBox.setText(choiceInputText.getText());
+                                    choices.put(choiceInputText.getText().toString(), false);
                                     checkBoxRow.addView(checkBox);
 
                                     checkboxTable.addView(checkBoxRow);
@@ -104,7 +116,32 @@ public class CreateCardTypeMultipleFragment extends Fragment {
     }
 
     public TreeMap<String, Boolean> getChoices(){
-        TreeMap<String, Boolean> choices = new TreeMap<>();
+        if(answerChoicesSection != null){
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            RadioButton answerRadio = (RadioButton) radioGroup.getChildAt(selectedId);
+            String answer = answerRadio.getText().toString();
+
+            choices.put(answer, true);
+
+            Log.d("MULTIPLE", choices.size()+"");
+
+        }else if(answerChoicesSection != null){
+            for(int i = 0; i < checkboxTable.getChildCount(); i++){
+                View view = checkboxTable.getChildAt(i);
+                TableRow row = (TableRow) view;
+
+                CheckBox checkBox = (CheckBox) row.getChildAt(0);
+                String answer = checkBox.getText().toString();
+
+                if(checkBox.isChecked()){
+                    choices.put(answer, true);
+                }
+            }
+
+            Log.d("MULTIPLE", choices.size()+"");
+        }else{
+            Log.d("MULTIPLE", "NO");
+        }
 
         return choices;
     }

@@ -54,6 +54,7 @@ public class DeckOptionsActivity extends BaseActivity {
         if(deck.getCards().size() <= 0){
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
             useDeckPracticeButton.setEnabled(false);
+            useDeckChallengeButton.setEnabled(false);
             deckStatsButton.setEnabled(false);
         }else{
             deckAlertTextView.setVisibility(View.INVISIBLE);
@@ -71,6 +72,11 @@ public class DeckOptionsActivity extends BaseActivity {
         Intent intent = new Intent(DeckOptionsActivity.this, QuizTakingActivity.class);
         intent.putExtra("DECK_ID", deckId);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.useDeckChallangeButton)
+    public void setUseDeckChallengeButton(View view){
+
     }
 
     @OnClick(R.id.deckStatsButton)
