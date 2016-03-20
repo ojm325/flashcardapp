@@ -94,7 +94,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
         try {
             this.open();
 
-            ArrayList<Deck> decks = new ArrayList<Deck>();
+            ArrayList<Deck> decks = new ArrayList<>();
             Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, null, null, null, null, null);
 
             if(cursor.moveToFirst()) {
@@ -125,7 +125,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
         try {
             this.open();
 
-            ArrayList<FlashCard> cards = new ArrayList<FlashCard>();
+            ArrayList<FlashCard> cards = new ArrayList<>();
             Cursor cursor = db.query(dbHelper.CARD_TABLE, allCardTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 
             if(cursor.moveToFirst()) {
@@ -214,5 +214,15 @@ public class SQLiteDeckCardStorage implements DataStorage {
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteCard ERROR: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void setAnswerChoicesForCard(int deckId, int cardId) {
+        
+    }
+
+    @Override
+    public ArrayList<String> getAnswerChoicesForCard(int deckId, int cardId) {
+        return null;
     }
 }

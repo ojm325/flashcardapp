@@ -1,8 +1,10 @@
 package com.ojm.flashcardapp.CreationViews;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,8 @@ public class CreateCardActivity extends BaseActivity {
     @Bind(R.id.cardTypeRadioGroup) RadioGroup cardTypeRadioGroup;
 
     private int deckId;
+    private String question;
+    int radioIndexOfChild = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class CreateCardActivity extends BaseActivity {
 
                 int radioButtonId = group.getCheckedRadioButtonId();
                 View radioButton = group.findViewById(radioButtonId);
-                int radioIndexOfChild = group.indexOfChild(radioButton);
+                radioIndexOfChild = group.indexOfChild(radioButton);
 
                 CreateCardTypeWriteInFragment writeinFragment;
                 CreateCardTypeMultipleFragment multipleFragment;
@@ -105,19 +109,55 @@ public class CreateCardActivity extends BaseActivity {
 
     @OnClick(R.id.createCardButton)
     public void createCardButton(View view) {
-        String question = questionTextView.getText().toString();
+        question = questionTextView.getText().toString();
         //String answer = answerTextView.getText().toString();
 
-        FlashCard card = new FlashCardQuestionAndAnswer(question, null, "DEPRECATED", null);
+        if(verifyCardCreation()){
+            /*
+            FlashCard card = new FlashCardQuestionAndAnswer(question, null, "DEPRECATED", null);
 
-        DataStorage dataStorage = new SQLiteDeckCardStorage(this);
-        dataStorage.addCard(card, deckId);
+            DataStorage dataStorage = new SQLiteDeckCardStorage(this);
+            dataStorage.addCard(card, deckId);
 
-        Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
-        intent.putExtra("DECK_ID", deckId);
-        setResult(RESULT_OK, intent);
-        this.finish();
+            Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
+            intent.putExtra("DECK_ID", deckId);
+            setResult(RESULT_OK, intent);
+            this.finish();
+            */
+        }
 
+    }
+
+    protected boolean verifyCardCreation(){
+        // (Multiple Answers) Check if answer(s) have been selected.
+        // (True False/ Multiple Choice) Check if answer has been selected
+        // (Question and Answer) Check if answer has been written
+        // Check if Card has question
+        if(question.isEmpty()){
+            displayCardCreationError("Type in a question.");
+
+            return false;
+        }else if(radioIndexOfChild == -1){
+            displayCardCreationError("Select a card type.");
+
+            return false;
+        }else{
+            displayCardCreationError("Card created!");
+
+            return true;
+        }
+    }
+
+    protected void displayCardCreationError(String errorMessage){
+        new AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage(errorMessage)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 

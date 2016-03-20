@@ -19,4 +19,7 @@ public interface DataStorage {
     FlashCard getCard(int deckId);
     void deleteDeck(int deckId);
     void deleteCard(int deckId, int cardId);
+    void setAnswerChoicesForCard(int deckId, int cardId);
+    ArrayList<String> getAnswerChoicesForCard(int deckId, int cardId);
+
 }

@@ -29,7 +29,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String CARD_notes = "notes";
 
     public static final String CARD_CHOICES_id = "choice_id";
-    public static final String CARD_CHOICES_answer = "choice";
+    public static final String CARD_CHOICES_answer_choice = "answer_choice";
+    public static final String CARD_CHOICES_is_answer = "is_answer";
 
     public static final String CARD_ANALYTICS_id = "card_analytics_id";
     public static final String CARD_ANALYTICS_response = "response";
@@ -58,9 +59,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + CARD_card_id + " INTEGER PRIMARY KEY,"
                     + DECK_deck_id + " INTEGER,"
                     + CARD_question + " TEXT,"
-                    + CARD_choice_id_answer + " INTEGER,"
                     + CARD_notes + " TEXT,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");
+
+            db.execSQL("CREATE TABLE " + CARD_CHOICES_TABLE + "("
+                    + CARD_CHOICES_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + DECK_deck_id + " INTEGER,"
+                    + CARD_card_id + " INTEGER,"
+                    + CARD_CHOICES_answer_choice + " TEXT,"
+                    + CARD_CHOICES_is_answer + " INTEGER,"
+                    + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id),"
+                    + "FOREIGN KEY(card_id) REFERENCES card(card_id))");
+
+
+            /***
+             *      Analytic Tables
+             ***/
 
             db.execSQL("CREATE TABLE " + CARD_ANALYTICS_TABLE + "("
                     + CARD_ANALYTICS_id + " INTEGER PRIMARY KEY,"
@@ -79,14 +93,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + DECK_ANALYTICS_timestamp_finished + " DATESTAMP,"
                     + DECK_ANALYTICS_is_completed + " INTEGER,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");
-
-            db.execSQL("CREATE TABLE " + CARD_CHOICES_TABLE + "("
-                    + CARD_CHOICES_id + " INTEGER PRIMARY KEY,"
-                    + DECK_deck_id + " INTEGER,"
-                    + CARD_card_id + " INTEGER,"
-                    + CARD_CHOICES_answer + " TEXT,"
-                    + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id),"
-                    + "FOREIGN KEY(card_id) REFERENCES card(card_id))");
 
             Log.d(LOG_TAG, "onCreate NOTE: Database tables created!");
         }catch (Exception e){
