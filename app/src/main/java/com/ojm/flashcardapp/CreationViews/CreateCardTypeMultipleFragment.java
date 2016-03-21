@@ -27,6 +27,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Omar on 3/16/2016.
+ *
+ * Associated layout(s): fragment_create_card_type_multiple.xml
  */
 public class CreateCardTypeMultipleFragment extends Fragment {
     @Bind(R.id.addChoiceButton) Button addChoiceButton;

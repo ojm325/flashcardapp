@@ -36,6 +36,11 @@ public class FlashCardMultipleChoice implements FlashCard {
         this.question = question;
     }
 
+    /*
+        We're using TreeMaps because we want the choices to be in order.
+        The String key is the choice text while the boolean value is whether or not the choice is
+        an answer.
+     */
     public TreeMap<String, Boolean> getChoices() { return choices; }
     public void setChoices(TreeMap<String, Boolean> choices) {
         this.choices = choices;

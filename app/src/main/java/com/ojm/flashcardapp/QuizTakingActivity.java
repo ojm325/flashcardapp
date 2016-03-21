@@ -28,6 +28,9 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Omar on 1/31/2016.
+ *
+ * Associated layout(s): activity_quiz_taking.xml, individual_card.xml, individual_card_back.xml,
+ *                      individual_card_front.xml
  */
 public class QuizTakingActivity extends BaseActivity implements SensorEventListener{
     @Bind(R.id.cardQuestionTextView) TextView cardQuestion;

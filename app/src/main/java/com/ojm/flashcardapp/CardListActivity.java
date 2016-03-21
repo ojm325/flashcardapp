@@ -22,6 +22,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Omar on 1/22/2016.
+ *
+ * Associated layout(s): activity_card_list.xml, deck_list_item.xml, content_card_list.xml
  */
 public class CardListActivity extends BaseActivity {
     @Bind(R.id.fab) FloatingActionButton fab;

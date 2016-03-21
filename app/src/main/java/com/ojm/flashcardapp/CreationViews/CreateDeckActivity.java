@@ -23,6 +23,8 @@ import butterknife.OnClick;
 
 /**
  * Created by omar on 11/20/15.
+ *
+ * Associated layout(s): activity_create_deck.xml
  */
 public class CreateDeckActivity extends BaseActivity {
     @Bind(R.id.next) Button next;

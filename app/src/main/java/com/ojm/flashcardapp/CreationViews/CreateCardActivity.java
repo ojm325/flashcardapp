@@ -31,12 +31,14 @@ import butterknife.OnClick;
 
 /**
  * Created by Omar on 1/17/2016.
+ *
+ * Associated layout(s): activity_create_card.xml, fragment_create_card_type_multiple.xml,
+ *                      fragment_create_card_type_write_in.xml
  */
 public class CreateCardActivity extends BaseActivity {
     @Bind(R.id.createCardButton) Button createCardButton;
     @Bind(R.id.questionTextView) TextView questionTextView;
     @Bind(R.id.cardTypeRadioGroup) RadioGroup cardTypeRadioGroup;
-    //@Bind(R.id.answerTextView) TextView answerWriteInTextView;
     @Bind(R.id.cardNotesTextField) TextView cardNoteTextView;
 
     private int deckId;
@@ -120,21 +122,13 @@ public class CreateCardActivity extends BaseActivity {
     public void createCardButton(View view) {
         question = questionTextView.getText().toString();
         String cardNote = cardNoteTextView.getText().toString();
-        //String answerWriteIn = answerWriteInTextView.getText().toString();
-        //String answer = writeinFragment.getAnswer();
 
         if(verifyCardCreation()){
             String answer = "";
-            TreeMap<String, Boolean> choices = new TreeMap<>();
+            TreeMap<String, Boolean> choices;
 
             DataStorage dataStorage = new SQLiteDeckCardStorage(this);
 
-            /*
-
-                    Check to see if this logic makes sense
-
-
-             */
             if(cardType.getString("cardType").equals("Question and Answer")){
                 answer = writeinFragment.getAnswer();
 
@@ -174,6 +168,7 @@ public class CreateCardActivity extends BaseActivity {
     }
 
     protected boolean verifyCardCreation(){
+        // How the verifier should work when completely implemented...
         // (Multiple Answers) Check if answer(s) have been selected.
         // (True False/ Multiple Choice) Check if answer has been selected
         // (Question and Answer) Check if answer has been written

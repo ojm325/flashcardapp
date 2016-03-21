@@ -68,6 +68,16 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
+    public void deleteAllAnswerChoicesForCard(int deckId, int cardId) {
+
+    }
+
+    @Override
+    public void deleteAnswerChoice(int deckId, int cardId, String choice) {
+
+    }
+
+    @Override
     public void setAnswerChoiceForCard(int deckId, int cardId, String answerChoice, boolean isAnswer) {
 
     }

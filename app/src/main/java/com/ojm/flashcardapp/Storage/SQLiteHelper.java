@@ -10,34 +10,42 @@ import android.util.Log;
 public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = "SQLiteHelper";
 
+    // Database Info
     public static final String DB_NAME = "flashcardsTEST.db";
     public static final int DB_VERSION = 1;
+
+    // Tables
     public static final String DECK_TABLE = "deck";
     public static final String CARD_TABLE = "card";
     public static final String CARD_ANALYTICS_TABLE = "card_analytics";
     public static final String DECK_ANALYTICS_TABLE = "deck_analytics";
     public static final String CARD_CHOICES_TABLE = "card_choices";
 
+    // deck rows
     public static final String DECK_deck_id = "deck_id";
     public static final String DECK_deck_name = "deck_name";
     public static final String DECK_description = "description";
     public static final String DECK_date_created_on = "date_created_on";
     public static final String DECK_date_last_modified = "date_last_modified";
 
+    // card rows
     public static final String CARD_card_id = "card_id";
     public static final String CARD_type = "type";
     public static final String CARD_question = "question";
     public static final String CARD_notes = "notes";
 
+    // card_choices rows
     public static final String CARD_CHOICES_id = "choice_id";
     public static final String CARD_CHOICES_answer_choice = "answer_choice";
     public static final String CARD_CHOICES_is_answer = "is_answer";
 
+    // card_analytics rows
     public static final String CARD_ANALYTICS_id = "card_analytics_id";
     public static final String CARD_ANALYTICS_response = "response";
     public static final String CARD_ANALYTICS_timestamp_date = "response_timestamp";
     public static final String CARD_ANALYTICS_is_correct = "is_correct";
 
+    // deck_analytics rows
     public static final String DECK_ANALYTICS_id = "deck_analytics_id";
     public static final String DECK_ANALYTICS_timestamp_started = "timestamp_started";
     public static final String DECK_ANALYTICS_timestamp_finished = "timestamp_finished";
@@ -65,6 +73,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + CARD_notes + " TEXT,"
                     + "FOREIGN KEY(deck_id) REFERENCES deck(deck_id))");
 
+            /*
+                We have a separate table for choices and answers in order to accommodate for
+                multiple choices/answers.
+             */
             db.execSQL("CREATE TABLE " + CARD_CHOICES_TABLE + "("
                     + CARD_CHOICES_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + DECK_deck_id + " INTEGER,"

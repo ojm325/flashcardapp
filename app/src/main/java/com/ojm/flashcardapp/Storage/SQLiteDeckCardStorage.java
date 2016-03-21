@@ -243,6 +243,9 @@ public class SQLiteDeckCardStorage implements DataStorage {
             // We also have to delete all of the cards from that deck.
             db.delete(dbHelper.CARD_TABLE, dbHelper.DECK_deck_id+ " = ?", new String[]{Integer.toString(deckId)});
 
+            // And delete all of the answers too.
+            db.delete(dbHelper.CARD_CHOICES_TABLE, dbHelper.DECK_deck_id + " = ?", new String[]{Integer.toString(deckId)});
+
             this.close();
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteDeck ERROR: " + e.getMessage());
@@ -258,6 +261,16 @@ public class SQLiteDeckCardStorage implements DataStorage {
         }catch(Exception e){
             Log.e(LOG_TAG, "deleteCard ERROR: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void deleteAllAnswerChoicesForCard(int deckId, int cardId) {
+
+    }
+
+    @Override
+    public void deleteAnswerChoice(int deckId, int cardId, String choice) {
+
     }
 
     @Override

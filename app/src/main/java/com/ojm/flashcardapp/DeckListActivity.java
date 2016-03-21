@@ -46,6 +46,9 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+/*
+    Associated layout(s): activity_deck_list.xml, deck_list_item.xml, content_deck_list.xml
+ */
 public class DeckListActivity extends BaseActivity {
 
     @Bind(R.id.fab) FloatingActionButton fab;

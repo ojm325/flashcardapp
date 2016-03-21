@@ -16,6 +16,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Omar on 3/16/2016.
+ *
+ * Associated layout(s): fragment_create_card_type_writein.xml
  */
 public class CreateCardTypeWriteInFragment extends Fragment {
     @Bind(R.id.answerTextView) TextView answerTextView;

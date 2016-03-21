@@ -20,6 +20,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Omar on 1/23/2016.
+ *
+ * Associated layout(s): activity_deck_options.xml
  */
 public class DeckOptionsActivity extends BaseActivity {
     @Bind(R.id.useDeckPracticeButton) Button useDeckPracticeButton;
