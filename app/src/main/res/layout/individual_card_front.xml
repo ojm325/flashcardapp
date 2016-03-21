@@ -17,4 +17,14 @@
             android:layout_gravity="center"
             android:padding="10dp" />
     </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/answerSectionLayout"></FrameLayout>
+    </TableRow>
 </TableLayout>

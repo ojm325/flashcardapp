@@ -7,11 +7,19 @@ import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
+import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
@@ -24,6 +32,7 @@ import butterknife.ButterKnife;
 public class QuizTakingActivity extends BaseActivity implements SensorEventListener{
     @Bind(R.id.cardQuestionTextView) TextView cardQuestion;
     @Bind(R.id.cardAnswerTextView) TextView cardAnswer;
+    @Bind(R.id.answerSectionLayout) FrameLayout answerSectionLayout;
 
     protected int deckId;
     protected int cardId;
@@ -48,7 +57,18 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
         setTitle(deck.getDeckName());
 
-        populateCard(deck.getCards().get(cardId));
+        String cardType = deck.getCards().get(cardId).getCardType();
+
+        if(cardType.equals("Question and Answer")){
+            FlashCardQuestionAndAnswer card = (FlashCardQuestionAndAnswer)deck.getCards().get(cardId);
+
+            populateCard(card);
+        }else{
+            FlashCardMultipleChoice card = (FlashCardMultipleChoice)deck.getCards().get(cardId);
+
+            populateCard(card);
+        }
+
     }
 
 
@@ -108,6 +128,36 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
     protected void populateCard(FlashCard card){
         cardQuestion.setText(card.getQuestion());
+
+        TableLayout checkboxTable;
+        RadioGroup radioGroup;
+
+        if(!card.getCardType().equals("Question and Answer")){
+            FlashCardMultipleChoice multipleCard = (FlashCardMultipleChoice) card;
+
+            if(card.getCardType().equals("Multiple Answers")){
+                checkboxTable = new TableLayout(this);
+                for(String choiceText : multipleCard.getChoices().keySet()){
+                    TableRow checkBoxRow = new TableRow(this);
+                    CheckBox checkBox = new CheckBox(this);
+                    checkBox.setText(choiceText);
+                    checkBoxRow.addView(checkBox);
+
+                    checkboxTable.addView(checkBoxRow);
+                }
+
+                answerSectionLayout.addView(checkboxTable);
+            }else{
+                radioGroup = new RadioGroup(this);
+                for(String choiceText : multipleCard.getChoices().keySet()){
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(choiceText);
+                    radioGroup.addView(radioButton);
+                }
+
+                answerSectionLayout.addView(radioGroup);
+            }
+        }
 
         if(card.getCardType().equals("Multiple Answers")){
             String answerConcat = "";
