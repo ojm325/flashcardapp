@@ -11,5 +11,5 @@
         android:layout_height="@dimen/card_layout_size"
         app:frontView="@layout/individual_card_front"
         app:backView="@layout/individual_card_back"
-        />
+        android:layout_centerInParent="true" />
 </RelativeLayout>

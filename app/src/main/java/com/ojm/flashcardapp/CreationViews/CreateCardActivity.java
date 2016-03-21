@@ -57,6 +57,8 @@ public class CreateCardActivity extends BaseActivity {
 
         deckId = getIntent().getIntExtra("DECK_ID", 0);
 
+        // Determine the card type the user has selected, and adjust the fragment in this activity
+        // so that the user can put in the correct choices/answer for that type.
         cardTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -123,6 +125,8 @@ public class CreateCardActivity extends BaseActivity {
         question = questionTextView.getText().toString();
         String cardNote = cardNoteTextView.getText().toString();
 
+        // Verify if the user input everything correctly, then determine how the questions will be put
+        // into storage based on card type.
         if(verifyCardCreation()){
             String answer = "";
             TreeMap<String, Boolean> choices;
@@ -138,8 +142,7 @@ public class CreateCardActivity extends BaseActivity {
                 dataStorage.addCard(card, deckId);
                 int lastCardId = dataStorage.getLastInsertedCardId(deckId);
                 dataStorage.setAnswerChoiceForCard(deckId, lastCardId, answer, true);
-                
-                displayCardCreationError(card.getCardType());
+
             }else{
                 choices = multipleFragment.getChoices();
 
@@ -152,7 +155,6 @@ public class CreateCardActivity extends BaseActivity {
                     dataStorage.setAnswerChoiceForCard(deckId, lastCardId, choice, choices.get(choice));
                 }
 
-                displayCardCreationError(cardType.getString("cardType"));
             }
 
 

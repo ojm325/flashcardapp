@@ -52,15 +52,17 @@ public class DeckOptionsActivity extends BaseActivity {
         setTitle(deck.getDeckName());
 
         Log.d("Cards in deck", "" + deck.getCards().size());
-        cardsInDeckTextView.setText("Cards In Deck: "+deck.getCards().size());
+        cardsInDeckTextView.setText("Cards In Deck: " + deck.getCards().size());
 
         deckDescriptionTextView.setText(deck.getDescription());
 
-        if(deck.getCards().size() <= 0){
+        // Leaving these outside of the if statement from below since they're not done yet.
+        useDeckChallengeButton.setEnabled(false);
+        deckStatsButton.setEnabled(false);
+
+        if (deck.getCards().size() <= 0) {
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
             useDeckPracticeButton.setEnabled(false);
-            useDeckChallengeButton.setEnabled(false);
-            deckStatsButton.setEnabled(false);
         }else{
             deckAlertTextView.setVisibility(View.INVISIBLE);
         }

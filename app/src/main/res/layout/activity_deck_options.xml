@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="15dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Deck Title"
-        android:id="@+id/deckNameTextView" />
+        android:id="@+id/deckNameTextView"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description"
-        android:id="@+id/deckDescriptionTextView" />
+        android:id="@+id/deckDescriptionTextView"
+        android:paddingBottom="20dp"
+        android:textStyle="italic"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cards In Deck: "
-        android:id="@+id/cardsInDeckTextView" />
+        android:id="@+id/cardsInDeckTextView"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,35 +35,50 @@
         android:text="Deck Alert Notice Goes Here"
         android:id="@+id/deckAlertTextView"
         android:textStyle="bold"
-        android:textColor="#ff0000" />
+        android:textColor="#ff0000"
+        android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Use Deck (Practice Mode)"
-        android:id="@+id/useDeckPracticeButton" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp"
+        android:id="@+id/deckOptionsButtons">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Use Deck (Challenge Mode)"
-        android:id="@+id/useDeckChallangeButton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use Deck (Practice Mode)"
+            android:id="@+id/useDeckPracticeButton"
+            android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stats"
-        android:id="@+id/deckStatsButton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use Deck (Challenge Mode)"
+            android:id="@+id/useDeckChallangeButton"
+            android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modify Deck"
-        android:id="@+id/modifyDeckButton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stats"
+            android:id="@+id/deckStatsButton"
+            android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Deck"
-        android:id="@+id/deleteDeckButton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modify Deck"
+            android:id="@+id/modifyDeckButton"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Deck"
+            android:id="@+id/deleteDeckButton"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
 </LinearLayout>
