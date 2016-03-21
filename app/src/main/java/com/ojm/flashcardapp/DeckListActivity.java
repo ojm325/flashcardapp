@@ -75,7 +75,6 @@ public class DeckListActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         dataStorage = new SQLiteDeckCardStorage(DeckListActivity.this);
-        dataStorage.getAllDecks();
 
         decks = dataStorage.getAllDecks();
         adapter = new ArrayAdapter<>(this, R.layout.deck_list_item);
@@ -91,6 +90,9 @@ public class DeckListActivity extends BaseActivity {
 
     }
 
+    /*
+        When a row is clicked, it takes you to the Deck Options activity.
+     */
     @OnItemClick(R.id.deckList)
     public void setDeckListRowClick(int position){
         Intent intent = new Intent(DeckListActivity.this, DeckOptionsActivity.class);

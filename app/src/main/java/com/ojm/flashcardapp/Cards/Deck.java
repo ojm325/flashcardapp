@@ -9,11 +9,13 @@ public class Deck {
     private int deckId;
     private String deckName;
     private ArrayList<FlashCard> cards;
+    private String description;
 
-    public Deck(int deckId, String deckName, ArrayList cards){
+    public Deck(int deckId, String deckName, ArrayList cards, String description){
         this.deckId = deckId;
         this.deckName = deckName;
         this.cards = cards;
+        this.description = description;
     }
     public void setDeckName(String dN){
         this.deckName = dN;
@@ -32,4 +34,6 @@ public class Deck {
     public ArrayList<FlashCard> getCards(){
         return this.cards;
     }
+    public String getDescription(){ return this.description; }
+    public void setDescription(String description){ this.description = description; }
 }

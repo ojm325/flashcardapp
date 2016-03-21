@@ -20,6 +20,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String DECK_deck_id = "deck_id";
     public static final String DECK_deck_name = "deck_name";
+    public static final String DECK_description = "description";
     public static final String DECK_date_created_on = "date_created_on";
     public static final String DECK_date_last_modified = "date_last_modified";
 
@@ -52,6 +53,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE " + DECK_TABLE + "("
                     + DECK_deck_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + DECK_deck_name + " TEXT,"
+                    + DECK_description   + " TEXT,"
                     + DECK_date_created_on + " DATESTAMP DEFAULT CURRENT_TIMESTAMP,"
                     + DECK_date_last_modified + " DATESTAMP)");
 

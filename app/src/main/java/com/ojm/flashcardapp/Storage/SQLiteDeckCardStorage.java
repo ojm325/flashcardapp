@@ -24,9 +24,8 @@ public class SQLiteDeckCardStorage implements DataStorage {
 
     SQLiteHelper dbHelper;
     SQLiteDatabase db;
-    private String[] allDeckTableColumns = {dbHelper.DECK_deck_id, dbHelper.DECK_deck_name};
+    private String[] allDeckTableColumns = {dbHelper.DECK_deck_id, dbHelper.DECK_deck_name, dbHelper.DECK_description};
     private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_type, dbHelper.CARD_question, dbHelper.CARD_notes};
-    private String[] allCardTableColumns_LastRow = {"MAX("+dbHelper.CARD_card_id+")", dbHelper.DECK_deck_id, dbHelper.CARD_type, dbHelper.CARD_question, dbHelper.CARD_notes};
     private String[] allCardChoicesTableColumns = {dbHelper.CARD_CHOICES_id, dbHelper.DECK_deck_id, dbHelper.CARD_card_id, dbHelper.CARD_CHOICES_answer_choice, dbHelper.CARD_CHOICES_is_answer};
 
     public SQLiteDeckCardStorage(Context context){
@@ -47,6 +46,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
             this.open();
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_name, deck.getDeckName());
+            values.put(dbHelper.DECK_description, deck.getDescription());
 
             db.insert(SQLiteHelper.DECK_TABLE, null, values);
 
@@ -108,9 +108,10 @@ public class SQLiteDeckCardStorage implements DataStorage {
                     int deckId = cursor.getInt(cursor.getColumnIndex(dbHelper.DECK_deck_id));
                     String deckName = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_deck_name));
                     ArrayList<FlashCard> cards = this.getAllCardsForDeck(deckId);
+                    String description = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_description));
 
 
-                    Deck deck = new Deck(deckId, deckName, cards);
+                    Deck deck = new Deck(deckId, deckName, cards, description);
                     decks.add(deck);
 
                     cursor.moveToNext();
@@ -170,13 +171,12 @@ public class SQLiteDeckCardStorage implements DataStorage {
         }
     }
 
-    // Maybe this will be used for when you select a deck from the list?
     @Override
     public Deck getDeck(int deckId) {
         try {
             this.open();
 
-            Deck deck = new Deck(deckId, null, null);
+            Deck deck = new Deck(deckId, null, null, null);
 
             Cursor cursor = db.query(dbHelper.DECK_TABLE, allDeckTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, null);
 
@@ -184,9 +184,11 @@ public class SQLiteDeckCardStorage implements DataStorage {
                 while (!cursor.isAfterLast()){
                     String deckName = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_deck_name));
                     ArrayList<FlashCard>cards = this.getAllCardsForDeck(deckId);
+                    String description = cursor.getString(cursor.getColumnIndex(dbHelper.DECK_description));
 
                     deck.setDeckName(deckName);
                     deck.setCards(cards);
+                    deck.setDescription(description);
 
                     cursor.moveToNext();
                 }

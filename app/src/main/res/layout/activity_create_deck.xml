@@ -12,36 +12,18 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/deckNameTextView" />
+        android:id="@+id/deckNameTextField" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deck Type Default (You may change the type of cards later):"
+        android:text="Deck Description:"
         android:id="@+id/textView2" />
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton2" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton3" />
-    </RadioGroup>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deckDescriptionTextField" />
 
     <Button
         android:layout_width="wrap_content"

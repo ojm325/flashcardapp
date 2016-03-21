@@ -26,7 +26,8 @@ import butterknife.OnClick;
  */
 public class CreateDeckActivity extends BaseActivity {
     @Bind(R.id.next) Button next;
-    @Bind(R.id.deckNameTextView) TextView deckNameTextView;
+    @Bind(R.id.deckNameTextField) TextView deckNameTextField;
+    @Bind(R.id.deckDescriptionTextField) TextView deckDescriptionTextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,8 @@ public class CreateDeckActivity extends BaseActivity {
     public void nextButton(View view) {
         DataStorage localStorage = new SQLiteDeckCardStorage(getApplicationContext());
 
-        String deckName = deckNameTextView.getText().toString();
+        String deckName = deckNameTextField.getText().toString();
+        String deckDescription = deckDescriptionTextField.getText().toString();
         String[] deckNameLetters = deckName.split("");
 
         if(deckName.isEmpty() || deckNameLetters.length < 4){
@@ -53,7 +55,7 @@ public class CreateDeckActivity extends BaseActivity {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }else {
-            Deck deck = new Deck(-1, deckName, null);
+            Deck deck = new Deck(-1, deckName, null, deckDescription);
             localStorage.addDeck(deck);
             ArrayList<Deck> tempDeck = localStorage.getAllDecks();
             int deckId = tempDeck.get(tempDeck.size()-1).getDeckId();

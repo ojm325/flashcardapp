@@ -48,8 +48,11 @@ public class DeckOptionsActivity extends BaseActivity {
         Deck deck = dataStorage.getDeck(deckId);
         deckNameTextView.setText(deck.getDeckName());
         setTitle(deck.getDeckName());
+
         Log.d("Cards in deck", "" + deck.getCards().size());
         cardsInDeckTextView.setText("Cards In Deck: "+deck.getCards().size());
+
+        deckDescriptionTextView.setText(deck.getDescription());
 
         if(deck.getCards().size() <= 0){
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
