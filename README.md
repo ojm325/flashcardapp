@@ -32,7 +32,7 @@ For handling the storage of analytics, it follows a similar  structure to that o
 
 ## Libraries and Tools Used
 - Butter Knife: For view injection. It makes the code behind setting up the Android views much cleaner and simpler. 
-- DraggableFlipView(https://github.com/sasakicks/DraggableFlipView): Used while a user is quizzing themselves on a deck of cards. This is the code behind the cards flipping over to the other side to display the answer.
+- DraggableFlipView(https://github.com/sasakicks/DraggableFlipView): This library handles the animation of a view flipping over as the user swipes left or right on it. This is used for when a user swipes to view the other side of the card while they're quizzing themselves.
 - Google Play Services - Drive: Allows for API control over a user's Google Drive account. This will most likely be deprecated in the future. The original purpose behind including this in the project was to have an alternative method to creating a deck of cards. I didn't want to necessarily make a full back-end approach for this, and originally thought that this approach would be feasible. However, due to how much I've expanded the original idea behind the app, using Drive is becoming less and less of a useful approach for tackling the problem of users wanting to create cards from a place outside of their mobile device.
 - GSON: A library by Google that allows for JSON to be converted to a Java object and back. I have yet to use this library, but this will be useful if and when I create a back-end solution for this app.
 
