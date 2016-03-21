@@ -57,17 +57,7 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
         setTitle(deck.getDeckName());
 
-        String cardType = deck.getCards().get(cardId).getCardType();
-
-        if(cardType.equals("Question and Answer")){
-            FlashCardQuestionAndAnswer card = (FlashCardQuestionAndAnswer)deck.getCards().get(cardId);
-
-            populateCard(card);
-        }else{
-            FlashCardMultipleChoice card = (FlashCardMultipleChoice)deck.getCards().get(cardId);
-
-            populateCard(card);
-        }
+        populateCard(deck.getCards().get(cardId));
 
     }
 
@@ -128,6 +118,8 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
     protected void populateCard(FlashCard card){
         cardQuestion.setText(card.getQuestion());
+
+        answerSectionLayout.removeAllViews();
 
         TableLayout checkboxTable;
         RadioGroup radioGroup;
