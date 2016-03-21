@@ -19,10 +19,11 @@ public interface DataStorage {
     ArrayList<FlashCard> getAllCardsForDeck(int deckId);
     Deck getDeck(int deckId);
     FlashCard getCard(int deckId);
+    int getLastInsertedCardId(int deckId);
     void deleteDeck(int deckId);
     void deleteCard(int deckId, int cardId);
     void setAnswerChoiceForCard(int deckId, int cardId, String answerChoice, boolean isAnswer);
     void modifyAnswerChoiceForCard(int cardChoiceId, int deckId, int cardId);
-    LinkedHashMap getAnswerChoicesForCard(int deckId, int cardId);
+    TreeMap getAnswerChoicesForCard(int deckId, int cardId);
 
 }

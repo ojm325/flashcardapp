@@ -15,6 +15,7 @@ public class FlashCardMultipleChoice implements FlashCard {
                                    String question,
                                    TreeMap<String, Boolean> choices,
                                    String cardNote) {
+        this.cardType = cardType;
         this.question = question;
         this.choices = choices;
         this.cardNote = cardNote;

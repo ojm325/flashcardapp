@@ -116,16 +116,19 @@ public class CreateCardTypeMultipleFragment extends Fragment {
     }
 
     public TreeMap<String, Boolean> getChoices(){
-        if(answerChoicesSection != null){
+        if((radioGroup != null) && (radioGroup.getChildCount() > 0)){
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            RadioButton answerRadio = (RadioButton) radioGroup.getChildAt(selectedId);
-            String answer = answerRadio.getText().toString();
 
-            choices.put(answer, true);
+            if(selectedId != -1) {
+                RadioButton answerRadio = (RadioButton) radioGroup.getChildAt(selectedId);
+                String answer = answerRadio.getText().toString();
 
-            Log.d("MULTIPLE", choices.size()+"");
+                choices.put(answer, true);
 
-        }else if(answerChoicesSection != null){
+                Log.d("MULTIPLE", choices.values().toString() + "");
+            }
+
+        }else if(checkboxTable != null){
             for(int i = 0; i < checkboxTable.getChildCount(); i++){
                 View view = checkboxTable.getChildAt(i);
                 TableRow row = (TableRow) view;
@@ -139,8 +142,6 @@ public class CreateCardTypeMultipleFragment extends Fragment {
             }
 
             Log.d("MULTIPLE", choices.size()+"");
-        }else{
-            Log.d("MULTIPLE", "NO");
         }
 
         return choices;

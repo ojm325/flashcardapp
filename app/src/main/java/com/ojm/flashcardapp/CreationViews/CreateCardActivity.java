@@ -17,10 +17,13 @@ import android.widget.TextView;
 import com.ojm.flashcardapp.BaseActivity;
 import com.ojm.flashcardapp.CardListActivity;
 import com.ojm.flashcardapp.Cards.FlashCard;
+import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
 import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 import com.ojm.flashcardapp.R;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
+
+import java.util.TreeMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -121,18 +124,50 @@ public class CreateCardActivity extends BaseActivity {
         //String answer = writeinFragment.getAnswer();
 
         if(verifyCardCreation()){
-
-            /*
-            FlashCard card = new FlashCardQuestionAndAnswer(cardType.getString("cardType"), question, answer, cardNote);
+            String answer = "";
+            TreeMap<String, Boolean> choices = new TreeMap<>();
 
             DataStorage dataStorage = new SQLiteDeckCardStorage(this);
-            dataStorage.addCard(card, deckId);
+
+            /*
+
+                    Check to see if this logic makes sense
+
+
+             */
+            if(cardType.getString("cardType").equals("Question and Answer")){
+                answer = writeinFragment.getAnswer();
+
+                FlashCard card = new FlashCardQuestionAndAnswer(cardType.getString("cardType"), question, answer, cardNote);
+
+
+                dataStorage.addCard(card, deckId);
+                int lastCardId = dataStorage.getLastInsertedCardId(deckId);
+                dataStorage.setAnswerChoiceForCard(deckId, lastCardId, answer, true);
+                
+                displayCardCreationError(card.getCardType());
+            }else{
+                choices = multipleFragment.getChoices();
+
+                FlashCardMultipleChoice card = new FlashCardMultipleChoice(cardType.getString("cardType"), question, choices, cardNote);
+
+                dataStorage.addCard(card, deckId);
+                int lastCardId = dataStorage.getLastInsertedCardId(deckId);
+
+                for(String choice: choices.keySet()){
+                    dataStorage.setAnswerChoiceForCard(deckId, lastCardId, choice, choices.get(choice));
+                }
+
+                displayCardCreationError(cardType.getString("cardType"));
+            }
+
 
             Intent intent = new Intent(CreateCardActivity.this, CardListActivity.class);
             intent.putExtra("DECK_ID", deckId);
             setResult(RESULT_OK, intent);
             this.finish();
-            */
+
+
 
         }
 
@@ -153,27 +188,10 @@ public class CreateCardActivity extends BaseActivity {
 
                 return false;
             }else {
-                if(cardType.getString("cardType").equals("True or False")){
-                    multipleFragment.getChoices();
-                }
-                displayCardCreationError("Card created!" + cardType.getString("cardType"));
-
                 return true;
             }
-
-            /*
-                        } else if (writeinFragment.getAnswer().isEmpty() || multipleFragment.getChoices().isEmpty()) {
-                displayCardCreationError("Put in an answer.");
-
-                return false;
-            } else if (!multipleFragment.getChoices().containsValue(true)) {
-                displayCardCreationError("Mark a correct answer.");
-
-                return false;
-            }
-             */
         }catch (NullPointerException e){
-            displayCardCreationError("ERROR" +e.getMessage());
+            displayCardCreationError("Put in or mark a correct answer.");
 
             return false;
         }

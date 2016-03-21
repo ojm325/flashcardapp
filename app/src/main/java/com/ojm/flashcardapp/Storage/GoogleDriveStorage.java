@@ -5,6 +5,7 @@ import com.ojm.flashcardapp.Cards.FlashCard;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 /**
  * Created by omar on 11/22/15.
@@ -52,6 +53,11 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
+    public int getLastInsertedCardId(int deckId) {
+        return 0;
+    }
+
+    @Override
     public void deleteDeck(int deckId) {
 
     }
@@ -72,7 +78,8 @@ public class GoogleDriveStorage implements DataStorage {
     }
 
     @Override
-    public LinkedHashMap getAnswerChoicesForCard(int deckId, int cardId) {
+    public TreeMap getAnswerChoicesForCard(int deckId, int cardId) {
         return null;
     }
+
 }

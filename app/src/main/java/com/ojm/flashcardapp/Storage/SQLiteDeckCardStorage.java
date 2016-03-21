@@ -14,6 +14,7 @@ import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 /**
  * Created by Omar on 1/9/2016.
@@ -25,6 +26,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
     SQLiteDatabase db;
     private String[] allDeckTableColumns = {dbHelper.DECK_deck_id, dbHelper.DECK_deck_name};
     private String[] allCardTableColumns = {dbHelper.CARD_card_id, dbHelper.DECK_deck_id, dbHelper.CARD_type, dbHelper.CARD_question, dbHelper.CARD_notes};
+    private String[] allCardTableColumns_LastRow = {"MAX("+dbHelper.CARD_card_id+")", dbHelper.DECK_deck_id, dbHelper.CARD_type, dbHelper.CARD_question, dbHelper.CARD_notes};
     private String[] allCardChoicesTableColumns = {dbHelper.CARD_CHOICES_id, dbHelper.DECK_deck_id, dbHelper.CARD_card_id, dbHelper.CARD_CHOICES_answer_choice, dbHelper.CARD_CHOICES_is_answer};
 
     public SQLiteDeckCardStorage(Context context){
@@ -62,6 +64,7 @@ public class SQLiteDeckCardStorage implements DataStorage {
 
             ContentValues values = new ContentValues();
             values.put(dbHelper.DECK_deck_id, deckId);
+            values.put(dbHelper.CARD_type, card.getCardType());
             values.put(dbHelper.CARD_question, card.getQuestion());
             values.put(dbHelper.CARD_notes, card.getCardNote());
 
@@ -133,13 +136,26 @@ public class SQLiteDeckCardStorage implements DataStorage {
 
             if(cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()){
+                    int cardId = cursor.getInt(cursor.getColumnIndex(dbHelper.CARD_card_id));
                     String cardType = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_type));
                     String question = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_question));
-                    String answer = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_choice_id_answer));
                     String cardNote = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_notes));
 
-                    FlashCard card = new FlashCardQuestionAndAnswer(cardType, question, answer, cardNote);
-                    cards.add(card);
+                    TreeMap<String, Boolean> choices = getAnswerChoicesForCard(deckId, cardId);
+
+                    if(cardType.equals("Question and Answer")){
+                        FlashCardQuestionAndAnswer card = new FlashCardQuestionAndAnswer(cardType, question, null, cardNote);
+
+                        card.setAnswers(choices.firstKey());
+
+                        cards.add(card);
+                    }else{
+                        FlashCardMultipleChoice card = new FlashCardMultipleChoice(cardType, question, null, cardNote);
+
+                        card.setChoices(choices);
+
+                        cards.add(card);
+                    }
 
                     cursor.moveToNext();
                 }
@@ -192,6 +208,27 @@ public class SQLiteDeckCardStorage implements DataStorage {
         }catch(Exception e){
             Log.e(LOG_TAG, "getCard ERROR: " + e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public int getLastInsertedCardId(int deckId) {
+        try {
+            this.open();
+
+            Cursor cursor = db.query(dbHelper.CARD_TABLE, allCardTableColumns, dbHelper.DECK_deck_id+ " = " +deckId, null, null, null, dbHelper.CARD_card_id+" DESC", "1");
+
+            int cardId = -1;
+
+            if(cursor.moveToFirst()) {
+                cardId = cursor.getInt(cursor.getColumnIndex(dbHelper.CARD_card_id));
+            }
+
+            this.close();
+            return cardId;
+        }catch(Exception e){
+            Log.e(LOG_TAG, "getLastInsertedCardId ERROR: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -254,7 +291,41 @@ public class SQLiteDeckCardStorage implements DataStorage {
     }
 
     @Override
-    public LinkedHashMap getAnswerChoicesForCard(int deckId, int cardId) {
-        return null;
+    public TreeMap getAnswerChoicesForCard(int deckId, int cardId) {
+        try {
+            this.open();
+
+            TreeMap<String, Boolean> choices = new TreeMap<>();
+
+            Cursor cursor = db.query(dbHelper.CARD_CHOICES_TABLE,
+                    allCardChoicesTableColumns,
+                    dbHelper.DECK_deck_id+ " = " +deckId+ " AND "+dbHelper.CARD_card_id+" = " +cardId,
+                    null, null, null, null);
+
+            if(cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()){
+                    String choiceString = cursor.getString(cursor.getColumnIndex(dbHelper.CARD_CHOICES_answer_choice));
+                    int isAnswerInt = cursor.getInt(cursor.getColumnIndex(dbHelper.CARD_CHOICES_is_answer));
+                    boolean isAnswer;
+
+                    if(isAnswerInt == 1){
+                        isAnswer = true;
+                    }else{
+                        isAnswer = false;
+                    }
+
+                    choices.put(choiceString, isAnswer);
+
+                    cursor.moveToNext();
+                }
+            }
+
+            this.close();
+
+            return choices;
+        }catch(Exception e){
+            Log.e(LOG_TAG, "getAnswerChoicesForCard ERROR: " + e.getMessage());
+            return null;
+        }
     }
 }
