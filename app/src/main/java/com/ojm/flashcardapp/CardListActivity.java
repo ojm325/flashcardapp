@@ -40,6 +40,8 @@ public class CardListActivity extends BaseActivity {
         setContentView(R.layout.activity_card_list);
         ButterKnife.bind(this);
 
+        //cardList.deferNotifyDataSetChanged();
+
         dataStorage = new SQLiteDeckCardStorage(this);
 
         deckId = getIntent().getIntExtra("DECK_ID", 0);

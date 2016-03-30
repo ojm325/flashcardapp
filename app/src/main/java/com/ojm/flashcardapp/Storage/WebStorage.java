@@ -10,7 +10,7 @@ import java.util.TreeMap;
 /**
  * Created by omar on 11/22/15.
  */
-public class GoogleDriveStorage implements DataStorage {
+public class WebStorage implements DataStorage {
 
     @Override
     public void addDeck(Deck deck) {
