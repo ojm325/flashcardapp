@@ -68,12 +68,6 @@ public class DeckOptionsActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_flash_card_list, menu);
-        return true;
-    }
-
     @OnClick(R.id.useDeckPracticeButton)
     public void setUseDeckPracticeButton(View view) {
         Intent intent = new Intent(DeckOptionsActivity.this, QuizTakingActivity.class);

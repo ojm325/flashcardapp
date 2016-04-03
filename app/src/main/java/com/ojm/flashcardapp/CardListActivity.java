@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -83,6 +85,26 @@ public class CardListActivity extends BaseActivity {
         Intent intent = new Intent(CardListActivity.this, CreateCardActivity.class);
         intent.putExtra("DECK_ID", deckId);
         startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_flash_card_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, DeckListActivity.class);
+                startActivity(intent);
+                this.finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
 }
