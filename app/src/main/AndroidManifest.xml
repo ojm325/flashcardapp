@@ -37,7 +37,10 @@
             android:name=".DeckOptionsActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".QuizTakingActivity"
+            android:name=".QuizViews.QuizTakingActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".QuizViews.QuizChallengeActivity"
             android:label="@string/app_name"></activity>
     </application>
 

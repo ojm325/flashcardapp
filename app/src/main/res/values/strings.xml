@@ -4,4 +4,14 @@
     <string name="action_finish">Finish</string>
     <string name="action_createNewDeck">Create New Deck</string>
     <string name="action_createNewCard">Create New Card</string>
+
+    <!-- Activity Deck Options Strings -->
+    <string name="deck_options_cards_in_deck_text">"Cards In Deck: "</string>
+
+    <!-- Activity Quiz Taking/Results Strings -->
+    <string name="quiz_taking_questions_right_text">"Questions Right: "</string>
+    <string name="quiz_taking_questions_wrong_text">"Questions Wrong: "</string>
+    <string name="quiz_taking_cards_left_text">"Cards Left: "</string>
+    <string name="quiz_results_score_text">"Score: "</string>
+
 </resources>

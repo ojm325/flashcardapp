@@ -1,4 +1,4 @@
-package com.ojm.flashcardapp;
+package com.ojm.flashcardapp.QuizViews;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,10 +16,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ojm.flashcardapp.BaseActivity;
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
 import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
+import com.ojm.flashcardapp.R;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
@@ -43,6 +45,8 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
     protected float yDown, yUp;
 
+    protected DataStorage dataStorage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
         deckId = getIntent().getIntExtra("DECK_ID", 0);
         cardId = getIntent().getIntExtra("CARD_ID", 0);
 
-        DataStorage dataStorage = new SQLiteDeckCardStorage(this);
+        dataStorage = new SQLiteDeckCardStorage(this);
 
         deck = dataStorage.getDeck(deckId);
         Log.d("CARDS", String.valueOf(cardId));

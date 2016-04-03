@@ -5,12 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ojm.flashcardapp.Cards.Deck;
+import com.ojm.flashcardapp.QuizViews.QuizChallengeActivity;
+import com.ojm.flashcardapp.QuizViews.QuizTakingActivity;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
@@ -57,12 +58,12 @@ public class DeckOptionsActivity extends BaseActivity {
         deckDescriptionTextView.setText(deck.getDescription());
 
         // Leaving these outside of the if statement from below since they're not done yet.
-        useDeckChallengeButton.setEnabled(false);
         deckStatsButton.setEnabled(false);
 
         if (deck.getCards().size() <= 0) {
             deckAlertTextView.setText("This deck has no cards. Click the 'Modify Deck' button to add cards.");
             useDeckPracticeButton.setEnabled(false);
+            useDeckChallengeButton.setEnabled(false);
         }else{
             deckAlertTextView.setVisibility(View.INVISIBLE);
         }
@@ -77,7 +78,9 @@ public class DeckOptionsActivity extends BaseActivity {
 
     @OnClick(R.id.useDeckChallangeButton)
     public void setUseDeckChallengeButton(View view){
-
+        Intent intent = new Intent(DeckOptionsActivity.this, QuizChallengeActivity.class);
+        intent.putExtra("DECK_ID", deckId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.deckStatsButton)
