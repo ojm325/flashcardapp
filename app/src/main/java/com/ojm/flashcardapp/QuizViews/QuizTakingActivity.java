@@ -7,26 +7,21 @@ import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.ojm.flashcardapp.BaseActivity;
+import com.ojm.flashcardapp.CardFlip.CardFlipFragment;
 import com.ojm.flashcardapp.Cards.Deck;
 import com.ojm.flashcardapp.Cards.FlashCard;
 import com.ojm.flashcardapp.Cards.FlashCardMultipleChoice;
-import com.ojm.flashcardapp.Cards.FlashCardQuestionAndAnswer;
 import com.ojm.flashcardapp.R;
 import com.ojm.flashcardapp.Storage.DataStorage;
 import com.ojm.flashcardapp.Storage.SQLiteDeckCardStorage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Omar on 1/31/2016.
@@ -35,9 +30,7 @@ import butterknife.ButterKnife;
  *                      individual_card_front.xml
  */
 public class QuizTakingActivity extends BaseActivity implements SensorEventListener{
-    @Bind(R.id.cardQuestionTextView) TextView cardQuestion;
-    @Bind(R.id.cardAnswerTextView) TextView cardAnswer;
-    @Bind(R.id.answerSectionLayout) FrameLayout answerSectionLayout;
+    @Bind(R.id.flipCardButton) Button flipCardButton;
 
     protected int deckId;
     protected int cardId;
@@ -46,6 +39,9 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
     protected float yDown, yUp;
 
     protected DataStorage dataStorage;
+    protected CardFlipFragment cardFlipFragment;
+
+    private Bundle deckBundle;
 
 
     @Override
@@ -64,7 +60,11 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
         setTitle(deck.getDeckName());
 
-        populateCard(deck.getCards().get(cardId));
+        deckBundle = new Bundle();
+        //FlashCard card = deck.getCards().get(0);
+
+        // TODO: Setup Parcelable or Serializable to pass Flashcard data to cardFlipFragment.
+        cardFlipFragment = new CardFlipFragment();
 
     }
 
@@ -83,12 +83,12 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
                 if (yDown < yUp){
                     if(cardId == 0){
                         Toast.makeText(getApplicationContext(), "You're at the beginning of the deck.", Toast.LENGTH_SHORT).show();
-                        populateCard(deck.getCards().get(cardId));
+                        //populateCard(deck.getCards().get(cardId));
                     }else {
                         if(cardId >= deck.getCards().size()){
                             cardId = deck.getCards().size()-2;
                         }
-                        populateCard(deck.getCards().get(cardId--));
+                        //populateCard(deck.getCards().get(cardId--));
                     }
                 }
 
@@ -102,7 +102,7 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
                     if(cardId == deck.getCards().size()){
                         Toast.makeText(getApplicationContext(), "No more cards to show.", Toast.LENGTH_SHORT).show();
                     }else {
-                        populateCard(deck.getCards().get(cardId++));
+                        //populateCard(deck.getCards().get(cardId++));
                     }
                 }
 
@@ -123,52 +123,9 @@ public class QuizTakingActivity extends BaseActivity implements SensorEventListe
 
     }
 
-    protected void populateCard(FlashCard card){
-        cardQuestion.setText(card.getQuestion());
+    @OnClick (R.id.flipCardButton)
+    protected void setFlipCardButton(){
 
-        answerSectionLayout.removeAllViews();
-
-        TableLayout checkboxTable;
-        RadioGroup radioGroup;
-
-        if(!card.getCardType().equals("Question and Answer")){
-            FlashCardMultipleChoice multipleCard = (FlashCardMultipleChoice) card;
-
-            if(card.getCardType().equals("Multiple Answers")){
-                checkboxTable = new TableLayout(this);
-                for(String choiceText : multipleCard.getChoices().keySet()){
-                    TableRow checkBoxRow = new TableRow(this);
-                    CheckBox checkBox = new CheckBox(this);
-                    checkBox.setText(choiceText);
-                    checkBoxRow.addView(checkBox);
-
-                    checkboxTable.addView(checkBoxRow);
-                }
-
-                answerSectionLayout.addView(checkboxTable);
-            }else{
-                radioGroup = new RadioGroup(this);
-                for(String choiceText : multipleCard.getChoices().keySet()){
-                    RadioButton radioButton = new RadioButton(this);
-                    radioButton.setText(choiceText);
-                    radioGroup.addView(radioButton);
-                }
-
-                answerSectionLayout.addView(radioGroup);
-            }
-        }
-
-        if(card.getCardType().equals("Multiple Answers")){
-            String answerConcat = "";
-
-            for(int i = 0; i < card.getAnswers().size(); i++){
-                answerConcat += card.getAnswers().get(i).toString()+ ", ";
-            }
-
-            cardAnswer.setText(answerConcat);
-        }else{
-            cardAnswer.setText(card.getAnswers().get(0).toString());
-        }
-
+        cardFlipFragment.flipCard();
     }
 }
